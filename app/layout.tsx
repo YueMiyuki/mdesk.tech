@@ -1,7 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react';
-
+import { GoogleAnalytics } from '@next/third-parties/google'
 import Navbar from '@/components/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,6 +22,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Analytics />
+        <GoogleAnalytics gaId="G-PNVSLSSS8V" />
       </body>
     </html>
   )

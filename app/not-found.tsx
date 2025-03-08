@@ -1,66 +1,156 @@
-'use client'
+"use client"
 
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion"
+import Link from "next/link"
+import { ArrowLeft, Home } from "lucide-react"
 
-function NotFoundPage() {
-	return (
-        <section id="about" className="py-20 bg-black">
-      <div className="container mx-auto px-6">
-        <motion.h2
-          className="text-4xl font-bold text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          404 - Not found.
-        </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+const NotFoundPage = () => {
+  return (
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
+      {/* Background elements */}
+      <div className="absolute inset-0 grid-pattern opacity-10 z-0" />
+      <div className="absolute inset-0 noise z-0" />
+
+      {/* Animated gradient orbs */}
+      <motion.div
+        className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 blur-3xl"
+        animate={{
+          x: [0, 100, 0],
+          y: [0, 50, 0],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        }}
+      />
+
+      <motion.div
+        className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 blur-3xl"
+        animate={{
+          x: [0, -100, 0],
+          y: [0, -50, 0],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        }}
+      />
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-8">
+            <motion.div
+              className="inline-block text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.8,
+                type: "spring",
+                stiffness: 200,
+                damping: 20,
+              }}
+            >
+              404
+            </motion.div>
+          </div>
+
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <h3 className="text-2xl font-semibold mb-4">Oops!</h3>
-            <p className="text-gray-300 mb-6">
-              We have absolutly no idea how you get here.
-            </p>
-            <p className="text-gray-300">
-              You can travel back to home in the navbar.
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Page Not Found</h1>
+            <p className="text-muted-foreground text-lg max-w-lg mx-auto">
+              We couldn't find the page you're looking for. It might have been moved, deleted, or never existed.
             </p>
           </motion.div>
+
           <motion.div
-  className="relative"
-  initial={{ opacity: 0, scale: 0.8 }}
-  whileInView={{ opacity: 1, scale: 1 }}
-  transition={{ duration: 0.8 }}
-  viewport={{ once: true }}
->
-  <div className="w-full h-96 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg shadow-2xl"></div>
-  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-white bg-opacity-10 backdrop-blur-lg rounded-full overflow-hidden">
-    
-    <div className="absolute inset-0 opacity-70">
-      <div className="absolute w-full h-full border-t-2 border-white/20 rounded-full" style={{ top: '10%' }}></div>
-      <div className="absolute w-full h-full border-t-2 border-white/20 rounded-full" style={{ top: '25%' }}></div>
-      <div className="absolute w-full h-full border-t-2 border-white/20 rounded-full" style={{ top: '40%' }}></div>
-      <div className="absolute w-full h-full border-t-2 border-white/20 rounded-full" style={{ top: '55%' }}></div>
-      <div className="absolute w-full h-full border-t-2 border-white/20 rounded-full" style={{ top: '70%' }}></div>
-    </div>
-    
-    <div className="absolute inset-0 opacity-70">
-      <div className="absolute w-full h-full border-l-2 border-white/20 rounded-full" style={{ left: '10%' }}></div>
-      <div className="absolute w-full h-full border-l-2 border-white/20 rounded-full" style={{ left: '25%' }}></div>
-      <div className="absolute w-full h-full border-l-2 border-white/20 rounded-full" style={{ left: '40%' }}></div>
-      <div className="absolute w-full h-full border-l-2 border-white/20 rounded-full" style={{ left: '55%' }}></div>
-      <div className="absolute w-full h-full border-l-2 border-white/20 rounded-full" style={{ left: '70%' }}></div>
-    </div>
-  </div>
-</motion.div>
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all hover:bg-primary/90"
+            >
+              <Home className="mr-2 h-4 w-4" />
+              Back to Home
+            </Link>
+            <button
+              onClick={() => window.history.back()}
+              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium transition-all hover:bg-secondary/80"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Go Back
+            </button>
+          </motion.div>
+
+          {/* 404 Illustration */}
+          <motion.div
+            className="mt-16 relative max-w-md mx-auto"
+            initial={{
+              opacity: 0,
+              y: 30,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+          >
+            <div className="relative aspect-square">
+              {/* Abstract 404 visualization */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 animate-pulse" />
+
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative w-3/4 h-3/4">
+                  {/* Circular grid pattern */}
+                  <div
+                    className="absolute inset-0 rounded-full border-4 border-dashed border-muted/30 animate-spin"
+                    style={{ animationDuration: "30s" }}
+                  />
+
+                  {/* Broken link visualization */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 flex items-center">
+                    <div className="w-1/2 h-4 bg-primary/50 rounded-l-full" />
+                    <div className="w-4 h-4 rounded-full bg-background border-2 border-primary/50 ml-4" />
+                  </div>
+
+                  {/* Animated dots */}
+                  {[0, 1, 2, 3, 4, 5].map((i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-3 h-3 rounded-full bg-primary/70"
+                      style={{
+                        top: `${Math.sin((i / 6) * Math.PI * 2) * 45 + 50}%`,
+                        left: `${Math.cos((i / 6) * Math.PI * 2) * 45 + 50}%`,
+                      }}
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: [0.7, 1, 0.7],
+                      }}
+                      transition={{
+                        duration: 2,
+                        delay: i * 0.3,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
-    </section>
-    )
+    </div>
+  )
 }
 
 export default NotFoundPage
+

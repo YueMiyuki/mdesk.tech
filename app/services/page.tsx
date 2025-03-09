@@ -76,6 +76,45 @@ const services: Service[] = [
   },
 ]
 
+const ServiceCard = ({ service, onLearnMore }: { service: Service; onLearnMore: () => void }) => {
+  return (
+    <div className="group/card relative isolate">
+      {/* Glow effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 blur-xl transition-opacity duration-500 -z-10 group-hover/card:opacity-20" />
+
+      <motion.div
+        className="bg-card border border-border/50 rounded-lg overflow-hidden hover:border-primary/50 hover:bg-black/40 transition-all duration-300"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="p-8">
+          <div className="flex items-start gap-6">
+            <div className={`p-4 rounded-lg bg-gradient-to-br ${service.color} text-white`}>{service.icon}</div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-semibold mb-2 group-hover/card:text-gradient transition-all duration-300">
+                {service.title}
+              </h2>
+              <p className="text-muted-foreground mb-4">{service.description}</p>
+
+              <div className="h-0 group-hover/card:h-auto overflow-hidden transition-all duration-300 opacity-0 group-hover/card:opacity-100">
+                <p className="text-muted-foreground">{service.details}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="px-8 py-4 border-t border-border/50 bg-muted/20">
+          <button onClick={onLearnMore} className="inline-flex items-center text-primary hover:underline">
+            Learn more about {service.title.toLowerCase()}
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
 export default function Services() {
   const [selectedService, setSelectedService] = useState<Service | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -109,38 +148,7 @@ export default function Services() {
 
         <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto">
           {services.map((service, index) => (
-            <motion.div
-              key={index}
-              className="bg-card border border-border/50 rounded-lg overflow-hidden group hover:border-primary/50 transition-all duration-300"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="p-8">
-                <div className="flex items-start gap-6">
-                  <div className={`p-4 rounded-lg bg-gradient-to-br ${service.color} text-white`}>{service.icon}</div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-semibold mb-2 group-hover:text-gradient transition-all duration-300">
-                      {service.title}
-                    </h2>
-                    <p className="text-muted-foreground mb-4">{service.description}</p>
-                    <div className="h-0 group-hover:h-auto overflow-hidden transition-all duration-300 opacity-0 group-hover:opacity-100">
-                      <p className="text-muted-foreground">{service.details}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="px-8 py-4 border-t border-border/50 bg-muted/20">
-                <button
-                  onClick={() => openServiceDialog(service)}
-                  className="inline-flex items-center text-primary hover:underline"
-                >
-                  Learn more about {service.title.toLowerCase()}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </button>
-              </div>
-            </motion.div>
+            <ServiceCard key={index} service={service} onLearnMore={() => openServiceDialog(service)} />
           ))}
         </div>
 

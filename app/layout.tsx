@@ -13,6 +13,16 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "mdesk.tech - Designing and hosting your digital future",
   description: "mdesk.tech specializes in cutting-edge web design and reliable hosting solutions.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://mdesk.tech"),
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico",
+        sizes: "any",
+      }
+    ],
+    apple: "/apple-icon",
+  },
 }
 
 export default function RootLayout({

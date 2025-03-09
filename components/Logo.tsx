@@ -3,7 +3,11 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 
-const Logo = () => {
+interface LogoProps {
+  hideText?: boolean
+}
+
+const Logo = ({ hideText = false }: LogoProps) => {
   return (
     <Link href="/" className="flex items-center gap-2">
       <motion.div
@@ -18,14 +22,17 @@ const Logo = () => {
           <span className="text-white font-bold text-xs">m</span>
         </div>
       </motion.div>
-      <motion.span
-        className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400"
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        mdesk.tech
-      </motion.span>
+
+      {!hideText && (
+        <motion.span
+          className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          mdesk.tech
+        </motion.span>
+      )}
     </Link>
   )
 }

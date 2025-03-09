@@ -3,12 +3,13 @@
 import { motion } from "framer-motion"
 import Logo from "@/components/Logo"
 import Link from "next/link"
-import { Mail } from "lucide-react"
+import { Github, Mail } from "lucide-react"
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
+    { icon: <Github className="h-5 w-5" />, href: "https://github.com", label: "GitHub" },
     { icon: <Mail className="h-5 w-5" />, href: "mailto:hello@mdesk.tech", label: "Email" },
   ]
 
@@ -80,6 +81,11 @@ const Footer = () => {
               <li className="text-muted-foreground">
                 <a href="mailto:hello@mdesk.tech" className="hover:text-primary transition-colors">
                   hello@mdesk.tech
+                </a>
+              </li>
+              <li className="text-muted-foreground">
+                <a href="tel:+1234567890" className="hover:text-primary transition-colors">
+                  +1 (234) 567-890
                 </a>
               </li>
             </ul>

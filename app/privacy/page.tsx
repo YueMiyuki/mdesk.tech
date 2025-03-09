@@ -104,3 +104,7 @@ export default function PrivacyPolicy() {
   )
 }
 
+PrivacyPolicy.meta = {
+  title: "Privacy Policy",
+  description: "Read our privacy policy to learn about how we collect and use your personal information at mdesk.tech.",
+}

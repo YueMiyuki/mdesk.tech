@@ -1,43 +1,50 @@
-"use client"
+"use client";
 
-import { useRef, useEffect, useMemo } from "react"
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
-import { ArrowRight, Code, Globe, Zap } from "lucide-react"
-import Link from "next/link"
+import { useRef, useEffect, useMemo } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import { ArrowRight, Code, Globe, Zap } from "lucide-react";
+import Link from "next/link";
 
 const Hero = () => {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
-  })
+  });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return
+      if (!containerRef.current) return;
 
-      const { clientX, clientY } = e
-      const { left, top, width, height } = containerRef.current.getBoundingClientRect()
-      const x = (clientX - left) / width
-      const y = (clientY - top) / height
+      const { clientX, clientY } = e;
+      const { left, top, width, height } =
+        containerRef.current.getBoundingClientRect();
+      const x = (clientX - left) / width;
+      const y = (clientY - top) / height;
 
-      mouseX.set(x)
-      mouseY.set(y)
-    }
+      mouseX.set(x);
+      mouseY.set(y);
+    };
 
-    window.addEventListener("mousemove", handleMouseMove, { passive: true })
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [mouseX, mouseY])
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
 
-  const springConfig = useMemo(() => ({ damping: 40, stiffness: 300 }), [])
-  const xSpring = useSpring(mouseX, springConfig)
-  const ySpring = useSpring(mouseY, springConfig)
+  const springConfig = useMemo(() => ({ damping: 40, stiffness: 300 }), []);
+  const xSpring = useSpring(mouseX, springConfig);
+  const ySpring = useSpring(mouseY, springConfig);
 
   return (
     <section
@@ -78,7 +85,9 @@ const Hero = () => {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-6"
           >
-            <span className="text-xs font-medium text-muted-foreground">Cutting-edge web solutions</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              Cutting-edge web solutions
+            </span>
           </motion.div>
 
           <motion.h1
@@ -87,7 +96,8 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Designing Your <span className="text-gradient glow-text">Digital Future</span>
+            Designing Your{" "}
+            <span className="text-gradient glow-text">Digital Future</span>
           </motion.h1>
 
           <motion.p
@@ -96,8 +106,8 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            Cutting-edge web design and reliable hosting solutions for businesses that want to stand out in the digital
-            landscape.
+            Cutting-edge web design and reliable hosting solutions for
+            businesses that want to stand out in the digital landscape.
           </motion.p>
 
           <motion.div
@@ -108,9 +118,9 @@ const Hero = () => {
           >
             <button
               onClick={() => {
-                const contactSection = document.getElementById("contact")
+                const contactSection = document.getElementById("contact");
                 if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: "smooth" })
+                  contactSection.scrollIntoView({ behavior: "smooth" });
                 }
               }}
               className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all hover:bg-primary/90 hover:scale-105"
@@ -167,14 +177,18 @@ const Hero = () => {
         <motion.div
           className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-center justify-center"
           animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5, ease: "easeInOut" }}
+          transition={{
+            repeat: Number.POSITIVE_INFINITY,
+            duration: 1.5,
+            ease: "easeInOut",
+          }}
         >
           <div className="w-1.5 h-1.5 rounded-full bg-primary" />
         </motion.div>
       </motion.div>
     </section>
-  )
-}
+  );
+};
 const BrowserMockup = () => {
   return (
     <div className="relative w-full aspect-4/3 bg-linear-to-br from-indigo-500/10 to-purple-500/10 rounded-lg border border-border/50 backdrop-blur-xs p-4 shadow-xl">
@@ -247,7 +261,11 @@ const BrowserMockup = () => {
       <motion.div
         className="absolute -top-4 -right-4 w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-500 rounded-lg shadow-lg"
         animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+        transition={{
+          duration: 20,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "linear",
+        }}
       >
         <div className="absolute inset-1 bg-background rounded-md flex items-center justify-center">
           <Code className="h-6 w-6 text-primary" />
@@ -257,15 +275,18 @@ const BrowserMockup = () => {
       <motion.div
         className="absolute -bottom-6 -left-6 w-20 h-20 bg-linear-to-br from-purple-500 to-pink-500 rounded-full shadow-lg"
         animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        transition={{
+          duration: 4,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        }}
       >
         <div className="absolute inset-1 bg-background rounded-full flex items-center justify-center">
           <Globe className="h-8 w-8 text-primary" />
         </div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Hero
-
+export default Hero;

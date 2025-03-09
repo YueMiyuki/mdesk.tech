@@ -1,17 +1,23 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useRef } from "react"
-import { motion } from "framer-motion"
-import { Palette, Code2, Server, BarChart, ArrowRight } from "lucide-react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import type React from "react";
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { Palette, Code2, Server, BarChart, ArrowRight } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 interface Service {
-  title: string
-  description: string
-  details: string
-  icon: React.ReactNode
-  color: string
+  title: string;
+  description: string;
+  details: string;
+  icon: React.ReactNode;
+  color: string;
 }
 
 const services: Service[] = [
@@ -25,7 +31,8 @@ const services: Service[] = [
   },
   {
     title: "Web Development",
-    description: "Robust, scalable web applications built with cutting-edge tech.",
+    description:
+      "Robust, scalable web applications built with cutting-edge tech.",
     details:
       "We build powerful web applications using the latest technologies like React, Next.js, and Node.js. Our development process ensures clean, maintainable code that can scale with your business.",
     icon: <Code2 className="h-8 w-8" />,
@@ -47,23 +54,29 @@ const services: Service[] = [
     icon: <BarChart className="h-8 w-8" />,
     color: "from-pink-500 to-rose-500",
   },
-]
+];
 
-const ServiceCard = ({ service, index }: { service: Service; index: number }) => {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const [showDialog, setShowDialog] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
+const ServiceCard = ({
+  service,
+  index,
+}: {
+  service: Service;
+  index: number;
+}) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect()
+      const rect = cardRef.current.getBoundingClientRect();
     }
-    setIsHovering(true)
-  }
+    setIsHovering(true);
+  };
 
   const handleMouseLeave = () => {
-    setIsHovering(false)
-  }
+    setIsHovering(false);
+  };
 
   // Icon animation based on index
   const iconAnimations = [
@@ -72,7 +85,11 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
       animate: {
         scale: [1, 1.2, 1],
         filter: ["brightness(1)", "brightness(1.5)", "brightness(1)"],
-        transition: { duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
+        transition: {
+          duration: 2,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        },
       },
     },
     // Float up and down
@@ -84,7 +101,11 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
           "drop-shadow(0 0 8px rgba(99, 102, 241, 0.8))",
           "drop-shadow(0 0 0px rgba(99, 102, 241, 0.5))",
         ],
-        transition: { duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
+        transition: {
+          duration: 2,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        },
       },
     },
     // Subtle scale with color shift
@@ -92,7 +113,11 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
       animate: {
         scale: [1, 1.1, 0.95, 1],
         filter: ["hue-rotate(0deg)", "hue-rotate(30deg)", "hue-rotate(0deg)"],
-        transition: { duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
+        transition: {
+          duration: 3,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        },
       },
     },
     // Gentle side-to-side
@@ -104,10 +129,14 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
           "drop-shadow(0 0 8px rgba(168, 85, 247, 0.8))",
           "drop-shadow(0 0 0px rgba(168, 85, 247, 0.5))",
         ],
-        transition: { duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
+        transition: {
+          duration: 3,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        },
       },
     },
-  ]
+  ];
 
   return (
     <>
@@ -151,7 +180,11 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
             <div className="flex items-start gap-6">
               <motion.div
                 className={`p-4 rounded-lg bg-linear-to-br ${service.color} text-white`}
-                animate={isHovering ? iconAnimations[index % iconAnimations.length].animate : {}}
+                animate={
+                  isHovering
+                    ? iconAnimations[index % iconAnimations.length].animate
+                    : {}
+                }
               >
                 {service.icon}
               </motion.div>
@@ -171,7 +204,9 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
               className={`inline-flex items-center text-primary transition-all duration-300 ${isHovering ? "text-gradient font-medium" : ""}`}
             >
               Learn more about {service.title.toLowerCase()}
-              <div className={`ml-2 transition-transform duration-300 ${isHovering ? "translate-x-2" : ""}`}>
+              <div
+                className={`ml-2 transition-transform duration-300 ${isHovering ? "translate-x-2" : ""}`}
+              >
                 <ArrowRight className="h-4 w-4" />
               </div>
             </div>
@@ -220,7 +255,7 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
             background-position: 200% 0%;
           }
         }
-        
+
         .text-gradient {
           background: linear-gradient(to right, #6366f1, #a855f7);
           -webkit-background-clip: text;
@@ -229,8 +264,8 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
         }
       `}</style>
     </>
-  )
-}
+  );
+};
 
 const Services = () => {
   return (
@@ -247,11 +282,14 @@ const Services = () => {
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-4">
-            <span className="text-xs font-medium text-muted-foreground">What we offer</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              What we offer
+            </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            We provide comprehensive web solutions to help your business thrive in the digital landscape.
+            We provide comprehensive web solutions to help your business thrive
+            in the digital landscape.
           </p>
         </motion.div>
 
@@ -262,8 +300,7 @@ const Services = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Services
-
+export default Services;

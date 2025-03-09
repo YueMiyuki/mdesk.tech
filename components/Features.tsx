@@ -1,23 +1,30 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useRef } from "react"
-import { motion } from "framer-motion"
-import { Code, Globe, Lock, Users, Zap, Layers } from "lucide-react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import type React from "react";
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { Code, Globe, Lock, Users, Zap, Layers } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 interface Feature {
-  title: string
-  description: string
-  details: string
-  icon: React.ReactNode
-  color: string
+  title: string;
+  description: string;
+  details: string;
+  icon: React.ReactNode;
+  color: string;
 }
 
 const features: Feature[] = [
   {
     title: "Completely open source",
-    description: "Powered by powerful open-source projects, standing on giants' shoulders",
+    description:
+      "Powered by powerful open-source projects, standing on giants' shoulders",
     details:
       "We leverage the best open-source technologies like React, Next.js, and TailwindCSS to build robust, maintainable applications. This approach ensures transparency, security, and a vibrant ecosystem of support.",
     icon: <Code className="h-6 w-6" />,
@@ -25,7 +32,8 @@ const features: Feature[] = [
   },
   {
     title: "Dynamic HTML Streaming",
-    description: "Instantly stream UI from the server, integrated with the App Router and React Suspense.",
+    description:
+      "Instantly stream UI from the server, integrated with the App Router and React Suspense.",
     details:
       "Our streaming technology allows for progressive rendering of content, dramatically improving perceived load times. Users see content appear incrementally rather than waiting for the entire page to load, creating a more responsive experience.",
     icon: <Zap className="h-6 w-6" />,
@@ -42,7 +50,8 @@ const features: Feature[] = [
   },
   {
     title: "AI-Powered Code Generation",
-    description: "Leverage machine learning to automate repetitive coding tasks and suggest optimizations.",
+    description:
+      "Leverage machine learning to automate repetitive coding tasks and suggest optimizations.",
     details:
       "Our AI tools analyze your codebase to identify patterns, suggest improvements, and even generate boilerplate code. This accelerates development while maintaining high quality standards and consistency across your project.",
     icon: <Globe className="h-6 w-6" />,
@@ -50,7 +59,8 @@ const features: Feature[] = [
   },
   {
     title: "Advanced Security Features",
-    description: "Built-in protection against common web vulnerabilities and automated security updates.",
+    description:
+      "Built-in protection against common web vulnerabilities and automated security updates.",
     details:
       "We implement industry-standard security practices including HTTPS, content security policies, and protection against XSS, CSRF, and SQL injection attacks. Regular automated security scans ensure your application remains protected against emerging threats.",
     icon: <Lock className="h-6 w-6" />,
@@ -58,29 +68,36 @@ const features: Feature[] = [
   },
   {
     title: "Real-time Collaboration",
-    description: "Enable seamless team collaboration with live editing and version control integration with coder.",
+    description:
+      "Enable seamless team collaboration with live editing and version control integration with coder.",
     details:
       "Our collaboration tools allow multiple team members to work on the same project simultaneously, with changes reflected in real-time. Built-in version control ensures nothing is ever lost, while commenting and approval workflows streamline the review process.",
     icon: <Users className="h-6 w-6" />,
     color: "from-purple-500 to-indigo-500",
   },
-]
+];
 
-const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) => {
-  const [showDialog, setShowDialog] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
+const FeatureCard = ({
+  feature,
+  index,
+}: {
+  feature: Feature;
+  index: number;
+}) => {
+  const [showDialog, setShowDialog] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect()
+      const rect = cardRef.current.getBoundingClientRect();
     }
-    setIsHovering(true)
-  }
+    setIsHovering(true);
+  };
 
   const handleMouseLeave = () => {
-    setIsHovering(false)
-  }
+    setIsHovering(false);
+  };
 
   return (
     <>
@@ -122,14 +139,20 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
           viewport={{ once: true }}
         >
           <div className="flex items-start gap-4 grow">
-            <div className={`p-2 rounded-md bg-linear-to-br ${feature.color} text-white`}>{feature.icon}</div>
+            <div
+              className={`p-2 rounded-md bg-linear-to-br ${feature.color} text-white`}
+            >
+              {feature.icon}
+            </div>
             <div className="flex-1">
               <h3
                 className={`text-xl font-semibold mb-2 transition-all duration-300 ${isHovering ? "text-gradient" : ""}`}
               >
                 {feature.title}
               </h3>
-              <p className="text-muted-foreground mb-2">{feature.description}</p>
+              <p className="text-muted-foreground mb-2">
+                {feature.description}
+              </p>
             </div>
           </div>
 
@@ -138,8 +161,15 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
               className={`text-primary inline-flex items-center transition-all duration-300 ${isHovering ? "text-gradient font-medium" : ""}`}
             >
               Learn more
-              <div className={`ml-1 transition-transform duration-300 ${isHovering ? "translate-x-2" : ""}`}>
-                <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <div
+                className={`ml-1 transition-transform duration-300 ${isHovering ? "translate-x-2" : ""}`}
+              >
+                <svg
+                  className="h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
                   <path
                     fillRule="evenodd"
                     d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
@@ -156,7 +186,11 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <div className={`p-2 rounded-md bg-linear-to-br ${feature.color} text-white`}>{feature.icon}</div>
+              <div
+                className={`p-2 rounded-md bg-linear-to-br ${feature.color} text-white`}
+              >
+                {feature.icon}
+              </div>
               {feature.title}
             </DialogTitle>
             <DialogDescription>{feature.description}</DialogDescription>
@@ -188,7 +222,7 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
             background-position: 200% 0%;
           }
         }
-        
+
         .text-gradient {
           background: linear-gradient(to right, #6366f1, #a855f7);
           -webkit-background-clip: text;
@@ -197,8 +231,8 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
         }
       `}</style>
     </>
-  )
-}
+  );
+};
 
 const Features = () => {
   return (
@@ -214,12 +248,16 @@ const Features = () => {
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-4">
-            <span className="text-xs font-medium text-muted-foreground">Why choose us</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              Why choose us
+            </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Powerful Features
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Our platform combines cutting-edge technologies with intuitive design to deliver exceptional digital
-            experiences.
+            Our platform combines cutting-edge technologies with intuitive
+            design to deliver exceptional digital experiences.
           </p>
         </motion.div>
 
@@ -239,7 +277,7 @@ const Features = () => {
             background-position: 200% 0%;
           }
         }
-        
+
         .text-gradient {
           background: linear-gradient(to right, #6366f1, #a855f7);
           -webkit-background-clip: text;
@@ -248,8 +286,7 @@ const Features = () => {
         }
       `}</style>
     </section>
-  )
-}
+  );
+};
 
-export default Features
-
+export default Features;

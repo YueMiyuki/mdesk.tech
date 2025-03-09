@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { ArrowLeft, Home } from "lucide-react"
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft, Home } from "lucide-react";
 
 const NotFoundPage = () => {
   return (
@@ -62,9 +62,12 @@ const NotFoundPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Page Not Found</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              Page Not Found
+            </h1>
             <p className="text-muted-foreground text-lg max-w-lg mx-auto">
-              We couldn't find the page you're looking for. It might have been moved, deleted, or never existed.
+              We couldn't find the page you're looking for. It might have been
+              moved, deleted, or never existed.
             </p>
           </motion.div>
 
@@ -149,8 +152,7 @@ const NotFoundPage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NotFoundPage
-
+export default NotFoundPage;

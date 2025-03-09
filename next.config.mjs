@@ -4,17 +4,16 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'placeholder.com',
+        protocol: "https",
+        hostname: "placeholder.com",
       },
     ],
   },
   poweredByHeader: false,
   compress: true,
   productionBrowserSourceMaps: false,
-  output: 'standalone',
-  serverExternalPackages: ['mongodb'],
-}
+  output: "standalone",
+  serverExternalPackages: ["mongodb"],
+};
 
 export default nextConfig;
-

@@ -1,42 +1,52 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Palette, Code2, Server, BarChart, Check, ChevronRight, Sparkles, Layers, Zap } from "lucide-react"
-import Link from "next/link"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Palette,
+  Code2,
+  Server,
+  BarChart,
+  Check,
+  ChevronRight,
+  Sparkles,
+  Layers,
+  Zap,
+} from "lucide-react";
+import Link from "next/link";
 
 interface ServiceFeature {
-  title: string
-  description: string
-  icon: React.ReactNode
+  title: string;
+  description: string;
+  icon: React.ReactNode;
 }
 
 interface ServicePlan {
-  name: string
-  description: string
-  features: string[]
-  popular?: boolean
+  name: string;
+  description: string;
+  features: string[];
+  popular?: boolean;
 }
 
 interface ProcessStep {
-  step: string
-  title: string
-  description: string
+  step: string;
+  title: string;
+  description: string;
 }
 
 interface Service {
-  id: string
-  title: string
-  shortDescription: string
-  longDescription: string
-  icon: React.ReactNode
-  color: string
-  gradient: string
-  features: ServiceFeature[]
-  plans: ServicePlan[]
-  process: ProcessStep[]
+  id: string;
+  title: string;
+  shortDescription: string;
+  longDescription: string;
+  icon: React.ReactNode;
+  color: string;
+  gradient: string;
+  features: ServiceFeature[];
+  plans: ServicePlan[];
+  process: ProcessStep[];
 }
 
 const services: Service[] = [
@@ -72,7 +82,8 @@ const services: Service[] = [
     plans: [
       {
         name: "Essential",
-        description: "Perfect for small businesses looking to establish an online presence",
+        description:
+          "Perfect for small businesses looking to establish an online presence",
         features: [
           "Custom responsive design",
           "Up to 5 pages",
@@ -96,7 +107,8 @@ const services: Service[] = [
       },
       {
         name: "Enterprise",
-        description: "Comprehensive solution for large businesses with complex requirements",
+        description:
+          "Comprehensive solution for large businesses with complex requirements",
         features: [
           "Everything in Professional",
           "Unlimited pages",
@@ -123,7 +135,8 @@ const services: Service[] = [
       {
         step: "03",
         title: "Visual Design",
-        description: "Our designers create stunning visual mockups that bring your brand to life in the digital space.",
+        description:
+          "Our designers create stunning visual mockups that bring your brand to life in the digital space.",
       },
       {
         step: "04",
@@ -142,7 +155,8 @@ const services: Service[] = [
   {
     id: "web-development",
     title: "Web Development",
-    shortDescription: "Robust, scalable web applications built with cutting-edge tech.",
+    shortDescription:
+      "Robust, scalable web applications built with cutting-edge tech.",
     longDescription:
       "We build powerful web applications using the latest technologies like React, Next.js, and Node.js. Our development process ensures clean, maintainable code that can scale with your business.",
     icon: <Code2 className="h-8 w-8" />,
@@ -157,12 +171,14 @@ const services: Service[] = [
       },
       {
         title: "Performance Optimization",
-        description: "Our applications are optimized for speed and efficiency, providing a smooth user experience.",
+        description:
+          "Our applications are optimized for speed and efficiency, providing a smooth user experience.",
         icon: <Zap className="h-5 w-5" />,
       },
       {
         title: "Scalable Architecture",
-        description: "We build with growth in mind, ensuring your application can scale as your business expands.",
+        description:
+          "We build with growth in mind, ensuring your application can scale as your business expands.",
         icon: <Sparkles className="h-5 w-5" />,
       },
     ],
@@ -208,27 +224,32 @@ const services: Service[] = [
       {
         step: "01",
         title: "Requirements Analysis",
-        description: "We gather detailed technical requirements and define the scope of your project.",
+        description:
+          "We gather detailed technical requirements and define the scope of your project.",
       },
       {
         step: "02",
         title: "Architecture Planning",
-        description: "Our engineers design a robust architecture that ensures scalability and performance.",
+        description:
+          "Our engineers design a robust architecture that ensures scalability and performance.",
       },
       {
         step: "03",
         title: "Development",
-        description: "We write clean, efficient code following industry best practices and coding standards.",
+        description:
+          "We write clean, efficient code following industry best practices and coding standards.",
       },
       {
         step: "04",
         title: "Testing & QA",
-        description: "Rigorous testing across multiple devices and browsers ensures your application works flawlessly.",
+        description:
+          "Rigorous testing across multiple devices and browsers ensures your application works flawlessly.",
       },
       {
         step: "05",
         title: "Deployment",
-        description: "We deploy your application to production with continuous integration and delivery pipelines.",
+        description:
+          "We deploy your application to production with continuous integration and delivery pipelines.",
       },
       {
         step: "06",
@@ -241,7 +262,8 @@ const services: Service[] = [
   {
     id: "hosting",
     title: "Hosting Solutions",
-    shortDescription: "Reliable, secure hosting for your website or application.",
+    shortDescription:
+      "Reliable, secure hosting for your website or application.",
     longDescription:
       "Our hosting solutions provide the reliability, security, and performance your website needs. We offer managed hosting with 24/7 monitoring, automatic backups, and expert support.",
     icon: <Server className="h-8 w-8" />,
@@ -250,17 +272,20 @@ const services: Service[] = [
     features: [
       {
         title: "99.9% Uptime Guarantee",
-        description: "We ensure your website is always available with our reliable hosting infrastructure.",
+        description:
+          "We ensure your website is always available with our reliable hosting infrastructure.",
         icon: <Layers className="h-5 w-5" />,
       },
       {
         title: "Automatic Backups",
-        description: "Your data is safe with regular automated backups, protecting against data loss.",
+        description:
+          "Your data is safe with regular automated backups, protecting against data loss.",
         icon: <Zap className="h-5 w-5" />,
       },
       {
         title: "Advanced Security",
-        description: "We implement robust security measures to protect your website from threats.",
+        description:
+          "We implement robust security measures to protect your website from threats.",
         icon: <Sparkles className="h-5 w-5" />,
       },
     ],
@@ -310,12 +335,14 @@ const services: Service[] = [
       {
         step: "01",
         title: "Infrastructure Assessment",
-        description: "We evaluate your current setup and requirements to recommend the optimal hosting solution.",
+        description:
+          "We evaluate your current setup and requirements to recommend the optimal hosting solution.",
       },
       {
         step: "02",
         title: "Server Configuration",
-        description: "Our team configures your server with the necessary software and security measures.",
+        description:
+          "Our team configures your server with the necessary software and security measures.",
       },
       {
         step: "03",
@@ -326,19 +353,22 @@ const services: Service[] = [
       {
         step: "04",
         title: "Security Setup",
-        description: "We implement firewalls, SSL certificates, and other security measures to protect your data.",
+        description:
+          "We implement firewalls, SSL certificates, and other security measures to protect your data.",
       },
       {
         step: "05",
         title: "Monitoring Implementation",
-        description: "We set up 24/7 monitoring systems to alert us of any issues before they affect your users.",
+        description:
+          "We set up 24/7 monitoring systems to alert us of any issues before they affect your users.",
       },
     ],
   },
   {
     id: "seo",
     title: "SEO Optimization",
-    shortDescription: "Improve your online visibility and search engine rankings.",
+    shortDescription:
+      "Improve your online visibility and search engine rankings.",
     longDescription:
       "Our SEO experts will help your website rank higher in search results, driving more organic traffic to your business. We use data-driven strategies to optimize your content and structure.",
     icon: <BarChart className="h-8 w-8" />,
@@ -347,17 +377,20 @@ const services: Service[] = [
     features: [
       {
         title: "Keyword Research",
-        description: "We identify the most valuable keywords for your business to target in your content.",
+        description:
+          "We identify the most valuable keywords for your business to target in your content.",
         icon: <Layers className="h-5 w-5" />,
       },
       {
         title: "On-Page Optimization",
-        description: "We optimize your website's structure and content to improve search engine rankings.",
+        description:
+          "We optimize your website's structure and content to improve search engine rankings.",
         icon: <Zap className="h-5 w-5" />,
       },
       {
         title: "Performance Analytics",
-        description: "We provide detailed reports on your website's performance and search engine rankings.",
+        description:
+          "We provide detailed reports on your website's performance and search engine rankings.",
         icon: <Sparkles className="h-5 w-5" />,
       },
     ],
@@ -405,12 +438,14 @@ const services: Service[] = [
       {
         step: "01",
         title: "SEO Audit",
-        description: "We conduct a comprehensive audit of your website to identify opportunities for improvement.",
+        description:
+          "We conduct a comprehensive audit of your website to identify opportunities for improvement.",
       },
       {
         step: "02",
         title: "Keyword Strategy",
-        description: "Our team researches and identifies the most valuable keywords for your business and industry.",
+        description:
+          "Our team researches and identifies the most valuable keywords for your business and industry.",
       },
       {
         step: "03",
@@ -427,21 +462,23 @@ const services: Service[] = [
       {
         step: "05",
         title: "Link Building",
-        description: "We build high-quality backlinks to increase your website's authority and improve rankings.",
+        description:
+          "We build high-quality backlinks to increase your website's authority and improve rankings.",
       },
       {
         step: "06",
         title: "Monitoring & Reporting",
-        description: "We continuously monitor your rankings and provide detailed reports on your SEO performance.",
+        description:
+          "We continuously monitor your rankings and provide detailed reports on your SEO performance.",
       },
     ],
   },
-]
+];
 
 export default function Services() {
-  const [activeService, setActiveService] = useState(services[0].id)
-  const service = services.find((s) => s.id === activeService) || services[0]
-  const [activeTab, setActiveTab] = useState("general")
+  const [activeService, setActiveService] = useState(services[0].id);
+  const service = services.find((s) => s.id === activeService) || services[0];
+  const [activeTab, setActiveTab] = useState("general");
 
   return (
     <div className="min-h-screen pt-24 pb-16 relative overflow-hidden">
@@ -457,11 +494,14 @@ export default function Services() {
           transition={{ duration: 0.8 }}
         >
           <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm mb-4">
-            <span className="text-xs font-medium text-muted-foreground">What we offer</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              What we offer
+            </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h1>
           <p className="text-muted-foreground text-lg">
-            We provide comprehensive web solutions to help your business thrive in the digital landscape.
+            We provide comprehensive web solutions to help your business thrive
+            in the digital landscape.
           </p>
         </motion.div>
 
@@ -503,17 +543,23 @@ export default function Services() {
                   {service.icon}
                 </div>
                 <h2 className="text-3xl font-bold mb-4">{service.title}</h2>
-                <p className="text-muted-foreground text-lg mb-6">{service.longDescription}</p>
+                <p className="text-muted-foreground text-lg mb-6">
+                  {service.longDescription}
+                </p>
 
                 <div className="space-y-4">
                   {service.features.map((feature, index) => (
                     <div key={index} className="flex items-start gap-3">
-                      <div className={`mt-1 p-1.5 rounded-md bg-gradient-to-br ${service.gradient} text-white`}>
+                      <div
+                        className={`mt-1 p-1.5 rounded-md bg-gradient-to-br ${service.gradient} text-white`}
+                      >
                         {feature.icon}
                       </div>
                       <div>
                         <h3 className="font-medium">{feature.title}</h3>
-                        <p className="text-sm text-muted-foreground">{feature.description}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {feature.description}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -547,25 +593,34 @@ export default function Services() {
                             Popular
                           </div>
                         )}
-                        <h4 className="text-lg font-semibold mb-2">{plan.name}</h4>
-                        <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
+                        <h4 className="text-lg font-semibold mb-2">
+                          {plan.name}
+                        </h4>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          {plan.description}
+                        </p>
                         <ul className="space-y-2 mb-6">
                           {plan.features.map((feature, i) => (
-                            <li key={i} className="flex items-start gap-2 text-sm">
+                            <li
+                              key={i}
+                              className="flex items-start gap-2 text-sm"
+                            >
                               <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                               <span>{feature}</span>
                             </li>
                           ))}
                         </ul>
-                        <button
-                          className={`w-full py-2 rounded-md text-sm font-medium transition-colors ${
-                            plan.popular
-                              ? `bg-gradient-to-r ${service.gradient} text-white hover:opacity-90`
-                              : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                          }`}
-                        >
-                          Get Started
-                        </button>
+                        <Link href={"/contact"}>
+                          <button
+                            className={`w-full py-2 rounded-md text-sm font-medium transition-colors ${
+                              plan.popular
+                                ? `bg-gradient-to-r ${service.gradient} text-white hover:opacity-90`
+                                : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                            }`}
+                          >
+                            Get Started
+                          </button>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -576,10 +631,12 @@ export default function Services() {
             {/* Process Section */}
             <div className="mb-20">
               <div className="text-center mb-12">
-                <h2 className="text-2xl font-bold mb-4">Our {service.title} Process</h2>
+                <h2 className="text-2xl font-bold mb-4">
+                  Our {service.title} Process
+                </h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
-                  We follow a structured approach to deliver exceptional results for your {service.title.toLowerCase()}{" "}
-                  needs.
+                  We follow a structured approach to deliver exceptional results
+                  for your {service.title.toLowerCase()} needs.
                 </p>
               </div>
 
@@ -611,15 +668,21 @@ export default function Services() {
                       </div>
 
                       {/* Step content */}
-                      <div className={`flex-1 pt-3 ${index % 2 === 0 ? "text-left" : "text-right"}`}>
+                      <div
+                        className={`flex-1 pt-3 ${index % 2 === 0 ? "text-left" : "text-right"}`}
+                      >
                         <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6 relative">
                           {/* Decorative gradient */}
                           <div
                             className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-5 rounded-lg`}
                           />
                           <div className="relative z-10">
-                            <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                            <p className="text-muted-foreground">{step.description}</p>
+                            <h3 className="text-xl font-semibold mb-2">
+                              {step.title}
+                            </h3>
+                            <p className="text-muted-foreground">
+                              {step.description}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -638,9 +701,12 @@ export default function Services() {
             {/* FAQ Section */}
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
+                <h2 className="text-2xl font-bold mb-4">
+                  Frequently Asked Questions
+                </h2>
                 <p className="text-muted-foreground">
-                  Get answers to common questions about our {service.title.toLowerCase()} services.
+                  Get answers to common questions about our{" "}
+                  {service.title.toLowerCase()} services.
                 </p>
               </div>
 
@@ -678,7 +744,8 @@ export default function Services() {
                           "The timeline for a website design project typically ranges from 2-8 weeks, depending on the complexity and scope. A simple 5-page website might take 2-3 weeks, while a more complex site with custom features could take 6-8 weeks or more.",
                       },
                       {
-                        question: "Do you provide website maintenance after the design is complete?",
+                        question:
+                          "Do you provide website maintenance after the design is complete?",
                         answer:
                           "Yes, we offer website maintenance packages to keep your site updated, secure, and performing optimally. Our maintenance services include regular updates, security monitoring, content updates, and technical support.",
                       },
@@ -688,8 +755,13 @@ export default function Services() {
                           "Absolutely! All our designs are fully responsive and optimized for all devices, including smartphones, tablets, and desktops. We follow a mobile-first approach to ensure your site looks and functions perfectly regardless of screen size.",
                       },
                     ].map((faq, index) => (
-                      <div key={index} className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                      <div
+                        key={index}
+                        className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6"
+                      >
+                        <h3 className="text-lg font-semibold mb-2">
+                          {faq.question}
+                        </h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
                       </div>
                     ))}
@@ -698,23 +770,31 @@ export default function Services() {
                     service.id === "web-development" &&
                     [
                       {
-                        question: "What technologies do you use for web development?",
+                        question:
+                          "What technologies do you use for web development?",
                         answer:
                           "We specialize in modern web technologies including React, Next.js, Node.js, and TypeScript. For content management, we work with headless CMS solutions like Sanity, Contentful, and Strapi. Our tech stack is always chosen based on your specific project requirements.",
                       },
                       {
-                        question: "How do you handle project management during development?",
+                        question:
+                          "How do you handle project management during development?",
                         answer:
                           "We follow an Agile development methodology with regular sprints and check-ins. You'll have access to a project management tool where you can track progress, provide feedback, and communicate with our team throughout the development process.",
                       },
                       {
-                        question: "Do you provide documentation for the code you write?",
+                        question:
+                          "Do you provide documentation for the code you write?",
                         answer:
                           "Yes, we provide comprehensive documentation for all our development projects. This includes code comments, API documentation, deployment instructions, and user guides to ensure your team can maintain and extend the application in the future.",
                       },
                     ].map((faq, index) => (
-                      <div key={index} className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                      <div
+                        key={index}
+                        className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6"
+                      >
+                        <h3 className="text-lg font-semibold mb-2">
+                          {faq.question}
+                        </h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
                       </div>
                     ))}
@@ -738,8 +818,13 @@ export default function Services() {
                           "We guarantee a 99.9% uptime for all our hosting services. Our infrastructure is built on reliable cloud providers with redundancy across multiple data centers. We continuously monitor all servers and can quickly address any issues that arise.",
                       },
                     ].map((faq, index) => (
-                      <div key={index} className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                      <div
+                        key={index}
+                        className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6"
+                      >
+                        <h3 className="text-lg font-semibold mb-2">
+                          {faq.question}
+                        </h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
                       </div>
                     ))}
@@ -748,7 +833,8 @@ export default function Services() {
                     service.id === "seo" &&
                     [
                       {
-                        question: "How long does it take to see results from SEO?",
+                        question:
+                          "How long does it take to see results from SEO?",
                         answer:
                           "SEO is a long-term strategy that typically takes 3-6 months to start showing significant results. The timeline depends on factors like your website's current state, competition in your industry, and the aggressiveness of your SEO campaign.",
                       },
@@ -758,13 +844,19 @@ export default function Services() {
                           "We don't guarantee specific rankings as search engines constantly update their algorithms. However, we do guarantee that we'll follow SEO best practices and implement proven strategies to improve your visibility and organic traffic over time.",
                       },
                       {
-                        question: "What reports will I receive to track SEO progress?",
+                        question:
+                          "What reports will I receive to track SEO progress?",
                         answer:
                           "You'll receive comprehensive monthly reports showing key metrics like keyword rankings, organic traffic, conversion rates, and backlink profiles. We also provide actionable insights and recommendations based on the data to continuously improve your SEO performance.",
                       },
                     ].map((faq, index) => (
-                      <div key={index} className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                      <div
+                        key={index}
+                        className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6"
+                      >
+                        <h3 className="text-lg font-semibold mb-2">
+                          {faq.question}
+                        </h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
                       </div>
                     ))}
@@ -778,18 +870,25 @@ export default function Services() {
                           "Our designers primarily work with industry-standard tools like Figma for UI/UX design, Adobe Creative Suite for graphic design, and Framer for interactive prototypes. These tools allow for efficient collaboration and seamless handoff to development.",
                       },
                       {
-                        question: "Do you create custom illustrations or use stock images?",
+                        question:
+                          "Do you create custom illustrations or use stock images?",
                         answer:
                           "We can do both depending on your needs and budget. We have talented illustrators who can create custom graphics for your site, but we also have access to premium stock image libraries if that better suits your project requirements.",
                       },
                       {
-                        question: "How do you ensure accessibility in your designs?",
+                        question:
+                          "How do you ensure accessibility in your designs?",
                         answer:
                           "We follow WCAG 2.1 guidelines to ensure our designs are accessible to all users. This includes considerations for color contrast, text size, keyboard navigation, screen reader compatibility, and other accessibility best practices.",
                       },
                     ].map((faq, index) => (
-                      <div key={index} className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                      <div
+                        key={index}
+                        className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6"
+                      >
+                        <h3 className="text-lg font-semibold mb-2">
+                          {faq.question}
+                        </h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
                       </div>
                     ))}
@@ -798,7 +897,8 @@ export default function Services() {
                     service.id === "web-development" &&
                     [
                       {
-                        question: "How do you handle website performance optimization?",
+                        question:
+                          "How do you handle website performance optimization?",
                         answer:
                           "We implement various performance optimization techniques including code splitting, lazy loading, image optimization, caching strategies, and server-side rendering where appropriate. We aim for a Lighthouse performance score of 90+ on all our projects.",
                       },
@@ -808,13 +908,19 @@ export default function Services() {
                           "We follow security best practices including input validation, proper authentication and authorization, protection against XSS and CSRF attacks, secure data storage, and regular security updates. We also perform security audits before launching any application.",
                       },
                       {
-                        question: "Can you integrate with third-party services and APIs?",
+                        question:
+                          "Can you integrate with third-party services and APIs?",
                         answer:
                           "Yes, we have extensive experience integrating with various third-party services and APIs including payment gateways, CRM systems, marketing automation tools, social media platforms, and custom enterprise systems.",
                       },
                     ].map((faq, index) => (
-                      <div key={index} className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                      <div
+                        key={index}
+                        className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6"
+                      >
+                        <h3 className="text-lg font-semibold mb-2">
+                          {faq.question}
+                        </h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
                       </div>
                     ))}
@@ -838,8 +944,13 @@ export default function Services() {
                           "Yes, all our hosting plans include integration with a global Content Delivery Network (CDN) to ensure fast loading times for your visitors regardless of their location. This also provides additional protection against DDoS attacks.",
                       },
                     ].map((faq, index) => (
-                      <div key={index} className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                      <div
+                        key={index}
+                        className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6"
+                      >
+                        <h3 className="text-lg font-semibold mb-2">
+                          {faq.question}
+                        </h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
                       </div>
                     ))}
@@ -863,8 +974,13 @@ export default function Services() {
                           "We continuously monitor search engine algorithm updates and adjust our strategies accordingly. Our focus on ethical, white-hat SEO practices means our clients are less vulnerable to algorithm penalties. If an update does impact rankings, we quickly analyze and implement necessary changes.",
                       },
                     ].map((faq, index) => (
-                      <div key={index} className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                      <div
+                        key={index}
+                        className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6"
+                      >
+                        <h3 className="text-lg font-semibold mb-2">
+                          {faq.question}
+                        </h3>
                         <p className="text-muted-foreground">{faq.answer}</p>
                       </div>
                     ))}
@@ -877,10 +993,14 @@ export default function Services() {
               <div className="inline-block p-1 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500">
                 <div className="bg-background rounded-lg px-8 py-10">
                   <h2 className="text-3xl font-bold mb-4">
-                    {service.id === "web-design" && "Ready to transform your digital presence?"}
-                    {service.id === "web-development" && "Ready to build something amazing?"}
-                    {service.id === "hosting" && "Ready for reliable, secure hosting?"}
-                    {service.id === "seo" && "Ready to improve your search rankings?"}
+                    {service.id === "web-design" &&
+                      "Ready to transform your digital presence?"}
+                    {service.id === "web-development" &&
+                      "Ready to build something amazing?"}
+                    {service.id === "hosting" &&
+                      "Ready for reliable, secure hosting?"}
+                    {service.id === "seo" &&
+                      "Ready to improve your search rankings?"}
                   </h2>
                   <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                     {service.id === "web-design" &&
@@ -897,7 +1017,8 @@ export default function Services() {
                     className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium transition-all hover:opacity-90"
                   >
                     {service.id === "web-design" && "Start Your Design Project"}
-                    {service.id === "web-development" && "Start Your Development Project"}
+                    {service.id === "web-development" &&
+                      "Start Your Development Project"}
                     {service.id === "hosting" && "Get Hosting Solutions"}
                     {service.id === "seo" && "Boost Your Rankings"}
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -909,6 +1030,5 @@ export default function Services() {
         </AnimatePresence>
       </div>
     </div>
-  )
+  );
 }
-

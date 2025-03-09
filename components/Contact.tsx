@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Mail, ArrowRight } from "lucide-react"
+import { motion } from "framer-motion";
+import { Mail, ArrowRight } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -18,10 +18,14 @@ const Contact = () => {
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-4">
-            <span className="text-xs font-medium text-muted-foreground">Let's talk</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              Let's talk
+            </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch</h2>
-          <p className="text-muted-foreground">Ready to start your next project? We'd love to hear from you!</p>
+          <p className="text-muted-foreground">
+            Ready to start your next project? We'd love to hear from you!
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto">
@@ -66,7 +70,8 @@ const Contact = () => {
                 Email Us
               </h3>
               <p className="text-muted-foreground mb-4">
-                Our friendly team is here to help with any questions you might have.
+                Our friendly team is here to help with any questions you might
+                have.
               </p>
               <a
                 href="mailto:hello@mdesk.tech"
@@ -83,37 +88,36 @@ const Contact = () => {
         </div>
       </div>
       <style jsx global>{`
-@keyframes moveGradient {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 200% 0%;
-  }
-}
+        @keyframes moveGradient {
+          0% {
+            background-position: 0% 0%;
+          }
+          100% {
+            background-position: 200% 0%;
+          }
+        }
 
-.text-gradient {
-  background: linear-gradient(to right, #6366f1, #a855f7);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+        .text-gradient {
+          background: linear-gradient(to right, #6366f1, #a855f7);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
 
-@keyframes slowGlow {
-  0% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.1;
-  }
-}
-`}</style>
+        @keyframes slowGlow {
+          0% {
+            opacity: 0.1;
+          }
+          50% {
+            opacity: 0.3;
+          }
+          100% {
+            opacity: 0.1;
+          }
+        }
+      `}</style>
     </section>
-  )
-}
+  );
+};
 
-export default Contact
-
+export default Contact;

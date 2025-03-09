@@ -1,22 +1,30 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Logo from "@/components/Logo"
-import Link from "next/link"
-import { Github, Mail } from "lucide-react"
-import { useEffect, useState } from "react"
+import { motion } from "framer-motion";
+import Logo from "@/components/Logo";
+import Link from "next/link";
+import { Github, Mail } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Footer = () => {
-  const [currentYear, setCurrentYear] = useState(2024)
+  const [currentYear, setCurrentYear] = useState(2024);
 
   useEffect(() => {
-    setCurrentYear(new Date().getFullYear())
-  }, [])
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   const socialLinks = [
-    { icon: <Github className="h-5 w-5" />, href: "https://github.com", label: "GitHub" },
-    { icon: <Mail className="h-5 w-5" />, href: "mailto:hello@mdesk.tech", label: "Email" },
-  ]
+    {
+      icon: <Github className="h-5 w-5" />,
+      href: "https://github.com/YueMiyuki",
+      label: "GitHub",
+    },
+    {
+      icon: <Mail className="h-5 w-5" />,
+      href: "mailto:hello@mdesk.tech",
+      label: "Email",
+    },
+  ];
 
   return (
     <footer className="border-t border-border/40 pt-16 pb-8 relative overflow-hidden">
@@ -27,7 +35,8 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2">
             <Logo />
             <p className="mt-4 text-muted-foreground max-w-md">
-              Designing and hosting your digital future with cutting-edge web solutions that drive growth and success.
+              Designing and hosting your digital future with cutting-edge web
+              solutions that drive growth and success.
             </p>
 
             <div className="flex space-x-4 mt-6">
@@ -61,9 +70,11 @@ const Footer = () => {
                   {link.isScroll ? (
                     <button
                       onClick={() => {
-                        const element = document.getElementById(link.href.substring(1))
+                        const element = document.getElementById(
+                          link.href.substring(1),
+                        );
                         if (element) {
-                          element.scrollIntoView({ behavior: "smooth" })
+                          element.scrollIntoView({ behavior: "smooth" });
                         }
                       }}
                       className="text-muted-foreground hover:text-primary transition-colors"
@@ -71,7 +82,10 @@ const Footer = () => {
                       {link.name}
                     </button>
                   ) : (
-                    <Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">
+                    <Link
+                      href={link.href}
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
                       {link.name}
                     </Link>
                   )}
@@ -84,7 +98,10 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-3">
               <li className="text-muted-foreground">
-                <a href="mailto:hello@mdesk.tech" className="hover:text-primary transition-colors">
+                <a
+                  href="mailto:hello@mdesk.tech"
+                  className="hover:text-primary transition-colors"
+                >
                   hello@mdesk.tech
                 </a>
               </li>
@@ -93,20 +110,27 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border/40 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-muted-foreground">© {currentYear} mdesk.tech. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">
+            © {currentYear} mdesk.tech. All rights reserved.
+          </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link
+              href="/privacy"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link
+              href="/terms"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
               Terms of Service
             </Link>
           </div>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
-
+export default Footer;

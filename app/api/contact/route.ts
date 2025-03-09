@@ -1,49 +1,57 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { getCollection } from "@/lib/db"
+import { type NextRequest, NextResponse } from "next/server";
+import { getCollection } from "@/lib/db";
 
 // Rate limit window (1 hour in milliseconds)
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000;
 
 export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting
-    const ip = request.headers.get("x-forwarded-for") || "unknown-ip"
+    const ip = request.headers.get("x-forwarded-for") || "unknown-ip";
 
     // Get MongoDB collection
-    const collection = await getCollection()
+    const collection = await getCollection();
 
     // Check if this IP has submitted recently
-    const now = Date.now()
-    const result = await collection.findOne({ ip })
+    const now = Date.now();
+    const result = await collection.findOne({ ip });
 
     if (result) {
-      const lastSubmission = result.timestamp
-      const timeElapsed = now - lastSubmission
+      const lastSubmission = result.timestamp;
+      const timeElapsed = now - lastSubmission;
 
       if (timeElapsed < RATE_LIMIT_WINDOW) {
-        const minutesRemaining = Math.ceil((RATE_LIMIT_WINDOW - timeElapsed) / (60 * 1000))
+        const minutesRemaining = Math.ceil(
+          (RATE_LIMIT_WINDOW - timeElapsed) / (60 * 1000),
+        );
         return NextResponse.json(
           {
             error: "Rate limit exceeded",
             message: `Please wait ${minutesRemaining} minute${minutesRemaining > 1 ? "s" : ""} before submitting another message.`,
           },
           { status: 429 },
-        )
+        );
       }
     }
 
-    const body = await request.json()
-    const { name, email, subject, message } = body
+    const body = await request.json();
+    const { name, email, subject, message } = body;
 
     if (!name || !email || !message) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 },
+      );
     }
 
-    const webhookUrl = process.env.DISCORD_WEBHOOK_URL
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
 
     if (!webhookUrl) {
-      console.error("Discord webhook URL not configured")
-      return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
+      console.error("Discord webhook URL not configured");
+      return NextResponse.json(
+        { error: "Server configuration error" },
+        { status: 500 },
+      );
     }
 
     // Format the message for Discord
@@ -80,7 +88,7 @@ export async function POST(request: NextRequest) {
           },
         },
       ],
-    }
+    };
 
     // Send to Discord webhook
     const response = await fetch(webhookUrl, {
@@ -89,19 +97,25 @@ export async function POST(request: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(discordMessage),
-    })
+    });
 
     if (!response.ok) {
-      throw new Error(`Discord webhook error: ${response.statusText}`)
+      throw new Error(`Discord webhook error: ${response.statusText}`);
     }
 
     // Update rate limit in MongoDB
-    await collection.updateOne({ ip }, { $set: { timestamp: now } }, { upsert: true })
+    await collection.updateOne(
+      { ip },
+      { $set: { timestamp: now } },
+      { upsert: true },
+    );
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error sending message to Discord:", error)
-    return NextResponse.json({ error: "Failed to send message" }, { status: 500 })
+    console.error("Error sending message to Discord:", error);
+    return NextResponse.json(
+      { error: "Failed to send message" },
+      { status: 500 },
+    );
   }
 }
-

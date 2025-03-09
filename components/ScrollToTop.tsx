@@ -1,31 +1,30 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function ScrollToTop() {
-  const pathname = usePathname()
-  const [isMounted, setIsMounted] = useState(false)
+  const pathname = usePathname();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
-    if (!isMounted) return
+    if (!isMounted) return;
 
     // Use requestAnimationFrame for smoother scrolling
     const scrollToTop = () => {
       window.scrollTo({
         top: 0,
         behavior: "smooth",
-      })
-    }
+      });
+    };
 
     // Use requestAnimationFrame to ensure DOM is ready
-    requestAnimationFrame(scrollToTop)
-  }, [pathname, isMounted])
+    requestAnimationFrame(scrollToTop);
+  }, [pathname, isMounted]);
 
-  return null
+  return null;
 }
-

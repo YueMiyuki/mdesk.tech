@@ -1,10 +1,19 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { motion } from "framer-motion"
-import { Mail, ArrowRight, MessageSquare, CheckCircle, Clock, Globe, Video, ClockIcon as Clock24 } from "lucide-react"
-import { useState, useCallback } from "react"
+import { motion } from "framer-motion";
+import {
+  Mail,
+  ArrowRight,
+  MessageSquare,
+  CheckCircle,
+  Clock,
+  Globe,
+  Video,
+  ClockIcon as Clock24,
+} from "lucide-react";
+import { useState, useCallback } from "react";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
@@ -12,25 +21,28 @@ export default function ContactPage() {
     email: "",
     subject: "",
     message: "",
-  })
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormState((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }, [])
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setFormState((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    },
+    [],
+  );
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
-      e.preventDefault()
-      setIsSubmitting(true)
-      setError(null)
+      e.preventDefault();
+      setIsSubmitting(true);
+      setError(null);
 
       try {
         const response = await fetch("/api/contact", {
@@ -39,25 +51,29 @@ export default function ContactPage() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formState),
-        })
+        });
 
-        const data = await response.json()
+        const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Failed to send message")
+          throw new Error(data.message || "Failed to send message");
         }
 
-        setIsSubmitted(true)
-        setFormState({ name: "", email: "", subject: "", message: "" })
+        setIsSubmitted(true);
+        setFormState({ name: "", email: "", subject: "", message: "" });
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to send message. Please try again later.")
-        console.error(err)
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Failed to send message. Please try again later.",
+        );
+        console.error(err);
       } finally {
-        setIsSubmitting(false)
+        setIsSubmitting(false);
       }
     },
     [formState],
-  )
+  );
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -78,14 +94,18 @@ export default function ContactPage() {
               transition={{ duration: 0.8 }}
             >
               <div className="inline-flex items-center px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/10 backdrop-blur-xs mb-4">
-                <span className="text-xs font-medium text-indigo-300">Get in touch</span>
+                <span className="text-xs font-medium text-indigo-300">
+                  Get in touch
+                </span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                Let's start a <span className="text-gradient">conversation</span>
+                Let's start a{" "}
+                <span className="text-gradient">conversation</span>
               </h1>
               <p className="text-lg text-muted-foreground mb-8 max-w-lg">
-                Have a project in mind or just want to say hello? We'd love to hear from you. Fill out the form and
-                we'll get back to you as soon as possible.
+                Have a project in mind or just want to say hello? We'd love to
+                hear from you. Fill out the form and we'll get back to you as
+                soon as possible.
               </p>
 
               <div className="space-y-6 mb-8">
@@ -99,7 +119,9 @@ export default function ContactPage() {
                     <Mail className="h-5 w-5" />
                   </div>
                   <div>
-                    <div className="text-sm text-muted-foreground">Email us at</div>
+                    <div className="text-sm text-muted-foreground">
+                      Email us at
+                    </div>
                     <div className="font-medium">hello@mdesk.tech</div>
                   </div>
                 </motion.div>
@@ -112,8 +134,8 @@ export default function ContactPage() {
                   <h3 className="text-lg font-semibold">We Work Remotely!</h3>
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  Our team is distributed across the globe, allowing us to serve clients worldwide without geographical
-                  limitations.
+                  Our team is distributed across the globe, allowing us to serve
+                  clients worldwide without geographical limitations.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div className="flex items-start gap-2">
@@ -121,7 +143,8 @@ export default function ContactPage() {
                     <div className="text-sm">
                       <span className="font-medium">24/7 Availability</span>
                       <p className="text-muted-foreground">
-                        Our team spans multiple time zones, ensuring someone is always available to assist you.
+                        Our team spans multiple time zones, ensuring someone is
+                        always available to assist you.
                       </p>
                     </div>
                   </div>
@@ -130,7 +153,8 @@ export default function ContactPage() {
                     <div className="text-sm">
                       <span className="font-medium">Virtual Meetings</span>
                       <p className="text-muted-foreground">
-                        We schedule video calls at times that are convenient for you, no matter where you're located.
+                        We schedule video calls at times that are convenient for
+                        you, no matter where you're located.
                       </p>
                     </div>
                   </div>
@@ -149,8 +173,8 @@ export default function ContactPage() {
                   <p>Sunday: Closed</p>
                 </div>
                 <p className="mt-4 text-sm text-muted-foreground">
-                  These hours are in CST (China Standard Time), but our global team is available outside these hours as
-                  well.
+                  These hours are in CST (China Standard Time), but our global
+                  team is available outside these hours as well.
                 </p>
               </div>
             </motion.div>
@@ -180,7 +204,8 @@ export default function ContactPage() {
                       </div>
                       <h3 className="text-2xl font-bold mb-4">Message Sent!</h3>
                       <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                        Thank you for reaching out. We'll get back to you as soon as possible.
+                        Thank you for reaching out. We'll get back to you as
+                        soon as possible.
                       </p>
                       <button
                         onClick={() => setIsSubmitted(false)}
@@ -201,7 +226,10 @@ export default function ContactPage() {
                       <form onSubmit={handleSubmit} className="space-y-5">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
-                            <label htmlFor="name" className="block text-sm font-medium mb-2">
+                            <label
+                              htmlFor="name"
+                              className="block text-sm font-medium mb-2"
+                            >
                               Name
                             </label>
                             <input
@@ -218,7 +246,10 @@ export default function ContactPage() {
                           </div>
 
                           <div>
-                            <label htmlFor="email" className="block text-sm font-medium mb-2">
+                            <label
+                              htmlFor="email"
+                              className="block text-sm font-medium mb-2"
+                            >
                               Email
                             </label>
                             <input
@@ -236,7 +267,10 @@ export default function ContactPage() {
                         </div>
 
                         <div>
-                          <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="subject"
+                            className="block text-sm font-medium mb-2"
+                          >
                             Subject
                           </label>
                           <input
@@ -253,7 +287,10 @@ export default function ContactPage() {
                         </div>
 
                         <div>
-                          <label htmlFor="message" className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="message"
+                            className="block text-sm font-medium mb-2"
+                          >
                             Message
                           </label>
                           <textarea
@@ -336,10 +373,12 @@ export default function ContactPage() {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold mb-4">
+              Frequently Asked Questions
+            </h2>
             <p className="text-muted-foreground">
-              Have questions? We've got answers. If you don't see what you're looking for, feel free to reach out to us
-              directly.
+              Have questions? We've got answers. If you don't see what you're
+              looking for, feel free to reach out to us directly.
             </p>
           </motion.div>
 
@@ -391,6 +430,5 @@ export default function ContactPage() {
         }
       `}</style>
     </div>
-  )
+  );
 }
-

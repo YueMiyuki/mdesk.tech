@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { memo } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
+import { memo } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface LogoProps {
-  hideText?: boolean
+  hideText?: boolean;
 }
 
 const Logo = memo(({ hideText = false }: LogoProps) => {
@@ -35,10 +35,9 @@ const Logo = memo(({ hideText = false }: LogoProps) => {
         </motion.span>
       )}
     </Link>
-  )
-})
+  );
+});
 
-Logo.displayName = "Logo"
+Logo.displayName = "Logo";
 
-export default Logo
-
+export default Logo;

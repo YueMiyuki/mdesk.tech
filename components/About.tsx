@@ -1,27 +1,30 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { motion } from "framer-motion"
-import { Calendar, Users, Award, CheckCircle } from "lucide-react"
-import Link from "next/link"
-import { useState } from "react"
+import { motion } from "framer-motion";
+import { Calendar, Users, Award, CheckCircle } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 const About = () => {
-  const [activeTab, setActiveTab] = useState("mission")
+  const [activeTab, setActiveTab] = useState("mission");
 
   const tabs = [
     { id: "mission", label: "Our Mission" },
     { id: "story", label: "Our Story" },
-  ]
+  ];
 
   const tabContent = {
     mission: (
       <div className="space-y-6">
-        <h3 className="text-2xl font-bold">Empowering Digital Transformation</h3>
+        <h3 className="text-2xl font-bold">
+          Empowering Digital Transformation
+        </h3>
         <p className="text-muted-foreground">
-          At mdesk.tech, we're passionate about creating exceptional digital experiences. Our mission is to empower
-          businesses with cutting-edge web solutions that drive growth and success in the digital landscape.
+          At mdesk.tech, we're passionate about creating exceptional digital
+          experiences. Our mission is to empower businesses with cutting-edge
+          web solutions that drive growth and success in the digital landscape.
         </p>
         <div className="space-y-4 mt-6">
           {[
@@ -48,9 +51,10 @@ const About = () => {
       <div className="space-y-6">
         <h3 className="text-2xl font-bold">Our Journey</h3>
         <p className="text-muted-foreground">
-          Founded in 2023, mdesk.tech began with a simple vision: to bridge the gap between complex technology and
-          beautiful design. What started as a small team of passionate developers has grown into a full-service digital
-          agency serving clients worldwide.
+          Founded in 2023, mdesk.tech began with a simple vision: to bridge the
+          gap between complex technology and beautiful design. What started as a
+          small team of passionate developers has grown into a full-service
+          digital agency serving clients worldwide.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
           <div className="p-4 rounded-lg bg-card border border-border/50">
@@ -63,12 +67,14 @@ const About = () => {
           </div>
           <div className="p-4 rounded-lg bg-card border border-border/50">
             <div className="text-3xl font-bold text-primary mb-1">100+</div>
-            <div className="text-sm text-muted-foreground">Projects delivered</div>
+            <div className="text-sm text-muted-foreground">
+              Projects delivered
+            </div>
           </div>
         </div>
       </div>
     ),
-  }
+  };
 
   return (
     <section id="about" className="py-24 relative overflow-hidden">
@@ -88,11 +94,14 @@ const About = () => {
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm mb-4">
-            <span className="text-xs font-medium text-muted-foreground">Our story</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              Our story
+            </span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">About Us</h2>
           <p className="text-muted-foreground text-lg">
-            We're passionate about creating exceptional digital experiences that transform businesses.
+            We're passionate about creating exceptional digital experiences that
+            transform businesses.
           </p>
         </motion.div>
 
@@ -130,11 +139,34 @@ const About = () => {
 
                 {/* Orbiting cards - first layer */}
                 {[
-                  { icon: <Calendar className="h-8 w-8 text-primary/80" />, delay: 0 },
-                  { icon: <Users className="h-8 w-8 text-primary/80" />, delay: 2 },
-                  { icon: <Award className="h-8 w-8 text-primary/80" />, delay: 4 },
-                  { content: <div className="text-xl font-bold text-gradient">2023</div>, delay: 6 },
-                  { content: <div className="text-xl font-bold text-gradient">100+</div>, delay: 8 },
+                  {
+                    icon: <Calendar className="h-8 w-8 text-primary/80" />,
+                    delay: 0,
+                  },
+                  {
+                    icon: <Users className="h-8 w-8 text-primary/80" />,
+                    delay: 2,
+                  },
+                  {
+                    icon: <Award className="h-8 w-8 text-primary/80" />,
+                    delay: 4,
+                  },
+                  {
+                    content: (
+                      <div className="text-xl font-bold text-gradient">
+                        2023
+                      </div>
+                    ),
+                    delay: 6,
+                  },
+                  {
+                    content: (
+                      <div className="text-xl font-bold text-gradient">
+                        100+
+                      </div>
+                    ),
+                    delay: 8,
+                  },
                 ].map((item, index) => (
                   <motion.div
                     key={index}
@@ -381,7 +413,9 @@ const About = () => {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`px-4 py-2 font-medium text-sm relative ${
-                    activeTab === tab.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                    activeTab === tab.id
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {tab.label}
@@ -389,7 +423,11 @@ const About = () => {
                     <motion.div
                       className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
                       layoutId="activeTab"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
                     />
                   )}
                 </button>
@@ -411,8 +449,12 @@ const About = () => {
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Ready to work with us?</h3>
-                  <p className="text-muted-foreground">Let's create something amazing together.</p>
+                  <h3 className="text-xl font-bold mb-2">
+                    Ready to work with us?
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Let's create something amazing together.
+                  </p>
                 </div>
                 <Link
                   href="/contact"
@@ -433,7 +475,7 @@ const About = () => {
           height: 100%;
           min-height: 300px;
         }
-        
+
         .heart-container {
           position: relative;
           width: 40px;
@@ -441,7 +483,7 @@ const About = () => {
           transform: rotate(45deg);
           animation: heartbeat 1.5s infinite ease-in-out;
         }
-        
+
         .heart {
           position: absolute;
           top: 0;
@@ -451,43 +493,53 @@ const About = () => {
           background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
           box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
         }
-        
+
         .heart:before,
         .heart:after {
-          content: '';
+          content: "";
           position: absolute;
           width: 100%;
           height: 100%;
           background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
           border-radius: 50%;
         }
-        
+
         .heart:before {
           top: -50%;
           left: 0;
         }
-        
+
         .heart:after {
           top: 0;
           left: -50%;
         }
-        
+
         @keyframes heartbeat {
-          0% { transform: scale(1) rotate(45deg); }
-          14% { transform: scale(1.1) rotate(45deg); }
-          28% { transform: scale(1) rotate(45deg); }
-          42% { transform: scale(1.2) rotate(45deg); }
-          70% { transform: scale(1) rotate(45deg); }
+          0% {
+            transform: scale(1) rotate(45deg);
+          }
+          14% {
+            transform: scale(1.1) rotate(45deg);
+          }
+          28% {
+            transform: scale(1) rotate(45deg);
+          }
+          42% {
+            transform: scale(1.2) rotate(45deg);
+          }
+          70% {
+            transform: scale(1) rotate(45deg);
+          }
         }
       `}</style>
     </section>
-  )
-}
+  );
+};
 
 // Animated tab content with fade transition
 interface TabContentProps {
-  activeTab: string
-  content: Record<string, React.ReactNode>
+  activeTab: string;
+  content: Record<string, React.ReactNode>;
 }
 
 const AnimatedTabContent = ({ activeTab, content }: TabContentProps) => {
@@ -510,8 +562,7 @@ const AnimatedTabContent = ({ activeTab, content }: TabContentProps) => {
         </motion.div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default About
-
+export default About;

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function PrivacyPolicy() {
   return (
@@ -16,7 +16,10 @@ export default function PrivacyPolicy() {
           transition={{ duration: 0.5 }}
           className="max-w-3xl mx-auto"
         >
-          <Link href="/" className="inline-flex items-center text-muted-foreground hover:text-primary mb-8">
+          <Link
+            href="/"
+            className="inline-flex items-center text-muted-foreground hover:text-primary mb-8"
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Home
           </Link>
@@ -29,24 +32,35 @@ export default function PrivacyPolicy() {
             <section className="mt-8">
               <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
               <p>
-                At mdesk.tech, we take your privacy seriously. This Privacy Policy explains how we collect, use,
-                disclose, and safeguard your information when you visit our website.
+                At mdesk.tech, we take your privacy seriously. This Privacy
+                Policy explains how we collect, use, disclose, and safeguard
+                your information when you visit our website.
               </p>
             </section>
 
             <section className="mt-8">
-              <h2 className="text-2xl font-semibold mb-4">2. Information We Collect</h2>
-              <h3 className="text-xl font-semibold mb-2">2.1 Personal Information</h3>
-              <p>We may collect personal information that you voluntarily provide to us when you:</p>
+              <h2 className="text-2xl font-semibold mb-4">
+                2. Information We Collect
+              </h2>
+              <h3 className="text-xl font-semibold mb-2">
+                2.1 Personal Information
+              </h3>
+              <p>
+                We may collect personal information that you voluntarily provide
+                to us when you:
+              </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>Contact us through our website</li>
                 <li>Subscribe to our newsletter</li>
                 <li>Request a quote or consultation</li>
               </ul>
 
-              <h3 className="text-xl font-semibold mt-6 mb-2">2.2 Automatically Collected Information</h3>
+              <h3 className="text-xl font-semibold mt-6 mb-2">
+                2.2 Automatically Collected Information
+              </h3>
               <p>
-                When you visit our website, we automatically collect certain information about your device, including:
+                When you visit our website, we automatically collect certain
+                information about your device, including:
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>Browser type and version</li>
@@ -57,13 +71,18 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="mt-8">
-              <h2 className="text-2xl font-semibold mb-4">3. How We Use Your Information</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                3. How We Use Your Information
+              </h2>
               <p>We use the information we collect to:</p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>Provide and maintain our services</li>
                 <li>Respond to your inquiries and requests</li>
                 <li>Improve our website and services</li>
-                <li>Send you marketing and promotional communications (with your consent)</li>
+                <li>
+                  Send you marketing and promotional communications (with your
+                  consent)
+                </li>
                 <li>Monitor and analyze usage patterns and trends</li>
               </ul>
             </section>
@@ -71,8 +90,9 @@ export default function PrivacyPolicy() {
             <section className="mt-8">
               <h2 className="text-2xl font-semibold mb-4">4. Data Security</h2>
               <p>
-                We implement appropriate technical and organizational security measures to protect your information.
-                However, please note that no method of transmission over the internet is 100% secure.
+                We implement appropriate technical and organizational security
+                measures to protect your information. However, please note that
+                no method of transmission over the internet is 100% secure.
               </p>
             </section>
 
@@ -91,8 +111,12 @@ export default function PrivacyPolicy() {
             <section className="mt-8">
               <h2 className="text-2xl font-semibold mb-4">6. Contact Us</h2>
               <p>
-                If you have any questions about this Privacy Policy, please contact us at{" "}
-                <a href="mailto:hello@mdesk.tech" className="text-primary hover:underline">
+                If you have any questions about this Privacy Policy, please
+                contact us at{" "}
+                <a
+                  href="mailto:hello@mdesk.tech"
+                  className="text-primary hover:underline"
+                >
                   hello@mdesk.tech
                 </a>
               </p>
@@ -101,6 +125,5 @@ export default function PrivacyPolicy() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
-

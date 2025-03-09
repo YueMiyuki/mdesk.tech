@@ -6,6 +6,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -75,6 +76,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <Analytics />
+          <SpeedInsights />
           <GoogleAnalytics gaId="G-PNVSLSSS8V" />
         </ThemeProvider>
       </body>

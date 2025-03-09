@@ -88,11 +88,6 @@ const Footer = () => {
                   hello@mdesk.tech
                 </a>
               </li>
-              <li className="text-muted-foreground">
-                <a href="tel:+1234567890" className="hover:text-primary transition-colors">
-                  +1 (234) 567-890
-                </a>
-              </li>
             </ul>
           </div>
         </div>

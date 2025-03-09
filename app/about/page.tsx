@@ -172,10 +172,6 @@ export default function About() {
                             </div>
                           ))}
                         </div>
-
-                        <div className="mt-4 text-xs text-muted-foreground text-center">
-                          Our seamless end-to-end process
-                        </div>
                       </div>
                     </div>
                   </div>

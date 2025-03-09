@@ -125,7 +125,7 @@ export default function TermsOfService() {
               <h2 className="text-2xl font-semibold mb-4">8. Governing Law</h2>
               <p>
                 These terms and conditions are governed by and construed in
-                accordance with the laws of Japan, and you irrevocably submit to
+                accordance with the laws, and you irrevocably submit to
                 the exclusive jurisdiction of the courts in that location.
               </p>
             </section>

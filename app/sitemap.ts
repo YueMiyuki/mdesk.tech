@@ -20,5 +20,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'yearly',
         priority: 0.5,
       },
+      {
+        url: 'https://mdesk.tech/services',
+        lastModified: new Date(),
+        changeFrequency: 'yearly',
+        priority: 0.5,
+      },
+      {
+        url: 'https://mdesk.tech/privacy',
+        lastModified: new Date(),
+        changeFrequency: 'yearly',
+        priority: 0.3,
+      },
+      {
+        url: 'https://mdesk.tech/terms',
+        lastModified: new Date(),
+        changeFrequency: 'yearly',
+        priority: 0.3,
+      },
   ]
 }

@@ -1,6 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import type React from "react"
+
+import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Logo from "@/components/Logo"
@@ -19,18 +21,41 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+  // Memoize the scroll handler to prevent unnecessary re-renders
+  const handleScroll = useCallback(() => {
+    setIsScrolled(window.scrollY > 10)
   }, [])
+
+  useEffect(() => {
+    // Initial check
+    handleScroll()
+
+    // Add event listener
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    // Cleanup function
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [handleScroll])
+
+  // Close mobile menu when pathname changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (path.startsWith("#")) {
+      e.preventDefault()
+      const element = document.querySelector(path)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    }
+  }
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border/40" : "bg-background/50 backdrop-blur-sm"
+      className={`fixed top-0 left-0 right-0 z-100 transition-all duration-300 ${
+        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border/40" : "bg-background/50 backdrop-blur-xs"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -45,15 +70,7 @@ const Navbar = () => {
             <Link
               key={link.path}
               href={link.path}
-              onClick={(e) => {
-                if (link.path.startsWith("#")) {
-                  e.preventDefault()
-                  const element = document.querySelector(link.path)
-                  if (element) {
-                    element.scrollIntoView({ behavior: "smooth" })
-                  }
-                }
-              }}
+              onClick={(e) => handleLinkClick(e, link.path)}
               className={`relative text-sm font-medium transition-colors hover:text-primary ${
                 pathname === link.path ? "text-primary" : "text-muted-foreground"
               }`}
@@ -71,7 +88,12 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-foreground" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+        <button
+          className="md:hidden text-foreground"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
+        >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -96,13 +118,7 @@ const Navbar = () => {
                   }`}
                   onClick={(e) => {
                     setIsMobileMenuOpen(false)
-                    if (link.path.startsWith("#")) {
-                      e.preventDefault()
-                      const element = document.querySelector(link.path)
-                      if (element) {
-                        element.scrollIntoView({ behavior: "smooth" })
-                      }
-                    }
+                    handleLinkClick(e, link.path)
                   }}
                 >
                   {link.name}

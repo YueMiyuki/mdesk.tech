@@ -4,7 +4,7 @@ import { createCanvas, registerFont } from "canvas"
 
 async function generateFavicon() {
   try {   
-    const fontPath = path.resolve(process.cwd(), "app/fonts/GeistVF.woff")
+    const fontPath = path.resolve(process.cwd(), "./app/fonts/Geist-Regular.ttf")
     registerFont(fontPath, { family: "GeistVF" })
     console.log("✅ Registered GeistVF font")
    

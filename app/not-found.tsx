@@ -13,7 +13,7 @@ const NotFoundPage = () => {
 
       {/* Animated gradient orbs */}
       <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 blur-3xl"
+        className="absolute w-[500px] h-[500px] rounded-full bg-linear-to-r from-indigo-500/10 to-purple-500/10 blur-3xl"
         animate={{
           x: [0, 100, 0],
           y: [0, 50, 0],
@@ -26,7 +26,7 @@ const NotFoundPage = () => {
       />
 
       <motion.div
-        className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 blur-3xl"
+        className="absolute w-[300px] h-[300px] rounded-full bg-linear-to-r from-purple-500/10 to-pink-500/10 blur-3xl"
         animate={{
           x: [0, -100, 0],
           y: [0, -50, 0],
@@ -42,7 +42,7 @@ const NotFoundPage = () => {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
             <motion.div
-              className="inline-block text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500"
+              className="inline-block text-9xl font-bold bg-clip-text text-transparent bg-linear-to-r from-indigo-500 to-purple-500"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{
@@ -105,7 +105,7 @@ const NotFoundPage = () => {
           >
             <div className="relative aspect-square">
               {/* Abstract 404 visualization */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 animate-pulse" />
+              <div className="absolute inset-0 rounded-full bg-linear-to-br from-indigo-500/20 to-purple-500/20 animate-pulse" />
 
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative w-3/4 h-3/4">

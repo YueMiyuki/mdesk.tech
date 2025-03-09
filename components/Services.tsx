@@ -139,7 +139,7 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
         )}
 
         {/* Glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 blur-xl transition-opacity duration-500 -z-10 group-hover:opacity-20 rounded-lg" />
+        <div className="absolute inset-0 bg-linear-to-r from-indigo-500 to-purple-500 opacity-0 blur-xl transition-opacity duration-500 -z-10 group-hover:opacity-20 rounded-lg" />
 
         <motion.div
           className="flex flex-col h-full bg-card border border-border/50 rounded-lg overflow-hidden group-hover:border-transparent group-hover:bg-black/40 transition-all duration-300 z-10 relative"
@@ -147,10 +147,10 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex-grow p-8">
+          <div className="grow p-8">
             <div className="flex items-start gap-6">
               <motion.div
-                className={`p-4 rounded-lg bg-gradient-to-br ${service.color} text-white`}
+                className={`p-4 rounded-lg bg-linear-to-br ${service.color} text-white`}
                 animate={isHovering ? iconAnimations[index % iconAnimations.length].animate : {}}
               >
                 {service.icon}
@@ -184,7 +184,7 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <motion.div
-                className={`p-3 rounded-md bg-gradient-to-br ${service.color} text-white`}
+                className={`p-3 rounded-md bg-linear-to-br ${service.color} text-white`}
                 {...iconAnimations[index % iconAnimations.length]}
               >
                 {service.icon}
@@ -235,7 +235,7 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
 const Services = () => {
   return (
     <section id="services" className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background/0 z-0" />
+      <div className="absolute inset-0 bg-linear-to-b from-background/0 via-background/50 to-background/0 z-0" />
       <div className="absolute inset-0 noise z-0" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -246,7 +246,7 @@ const Services = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm mb-4">
+          <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-4">
             <span className="text-xs font-medium text-muted-foreground">What we offer</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>

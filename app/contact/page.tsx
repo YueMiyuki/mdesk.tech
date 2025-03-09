@@ -3,8 +3,8 @@
 import type React from "react"
 
 import { motion } from "framer-motion"
-import { Mail, Phone, MapPin, ArrowRight, MessageSquare, Clock, CheckCircle } from "lucide-react"
-import { useState } from "react"
+import { Mail, ArrowRight, MessageSquare, CheckCircle, Clock, Globe, Video, ClockIcon as Clock24 } from "lucide-react"
+import { useState, useCallback } from "react"
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
@@ -18,47 +18,51 @@ export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    })
-  }
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormState((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }, [])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError(null)
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault()
+      setIsSubmitting(true)
+      setError(null)
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formState),
-      })
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formState),
+        })
 
-      const data = await response.json()
+        const data = await response.json()
 
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to send message")
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to send message")
+        }
+
+        setIsSubmitted(true)
+        setFormState({ name: "", email: "", subject: "", message: "" })
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to send message. Please try again later.")
+        console.error(err)
+      } finally {
+        setIsSubmitting(false)
       }
-
-      setIsSubmitted(true)
-      setFormState({ name: "", email: "", subject: "", message: "" })
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to send message. Please try again later.")
-      console.error(err)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+    },
+    [formState],
+  )
 
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/30 via-background to-background z-0" />
+      <div className="absolute inset-0 bg-linear-to-b from-indigo-950/30 via-background to-background z-0" />
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500/20 via-purple-500/10 to-transparent blur-2xl" />
       </div>
@@ -73,7 +77,7 @@ export default function ContactPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="inline-flex items-center px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/10 backdrop-blur-sm mb-4">
+              <div className="inline-flex items-center px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/10 backdrop-blur-xs mb-4">
                 <span className="text-xs font-medium text-indigo-300">Get in touch</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -85,43 +89,56 @@ export default function ContactPage() {
               </p>
 
               <div className="space-y-6 mb-8">
-                {[
-                  {
-                    icon: <Mail className="h-5 w-5" />,
-                    label: "Email us at",
-                    value: "hello@mdesk.tech",
-                    color: "bg-indigo-500/10 text-indigo-400",
-                  },
-                  {
-                    icon: <Phone className="h-5 w-5" />,
-                    label: "Call us at",
-                    value: "+1 (234) 567-890",
-                    color: "bg-purple-500/10 text-purple-400",
-                  },
-                  {
-                    icon: <MapPin className="h-5 w-5" />,
-                    label: "Visit our office",
-                    value: "San Francisco, CA",
-                    color: "bg-indigo-500/10 text-indigo-400",
-                  },
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-start gap-4"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
-                  >
-                    <div className={`p-3 rounded-full ${item.color}`}>{item.icon}</div>
-                    <div>
-                      <div className="text-sm text-muted-foreground">{item.label}</div>
-                      <div className="font-medium">{item.value}</div>
-                    </div>
-                  </motion.div>
-                ))}
+                <motion.div
+                  className="flex items-start gap-4"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                >
+                  <div className="p-3 rounded-full bg-indigo-500/10 text-indigo-400">
+                    <Mail className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Email us at</div>
+                    <div className="font-medium">hello@mdesk.tech</div>
+                  </div>
+                </motion.div>
               </div>
 
-              <div className="p-6 rounded-lg bg-card/50 border border-indigo-500/20 backdrop-blur-sm">
+              {/* We Work Remotely Section */}
+              <div className="p-6 rounded-lg bg-linear-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 backdrop-blur-xs mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Globe className="h-5 w-5 text-indigo-400" />
+                  <h3 className="text-lg font-semibold">We Work Remotely!</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">
+                  Our team is distributed across the globe, allowing us to serve clients worldwide without geographical
+                  limitations.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div className="flex items-start gap-2">
+                    <Clock24 className="h-4 w-4 text-indigo-400 mt-1 shrink-0" />
+                    <div className="text-sm">
+                      <span className="font-medium">24/7 Availability</span>
+                      <p className="text-muted-foreground">
+                        Our team spans multiple time zones, ensuring someone is always available to assist you.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Video className="h-4 w-4 text-indigo-400 mt-1 shrink-0" />
+                    <div className="text-sm">
+                      <span className="font-medium">Virtual Meetings</span>
+                      <p className="text-muted-foreground">
+                        We schedule video calls at times that are convenient for you, no matter where you're located.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Office Hours Section */}
+              <div className="p-6 rounded-lg bg-card/50 border border-indigo-500/20 backdrop-blur-xs">
                 <div className="flex items-center gap-3 mb-4">
                   <Clock className="h-5 w-5 text-indigo-400" />
                   <h3 className="text-lg font-semibold">Office Hours</h3>
@@ -131,6 +148,10 @@ export default function ContactPage() {
                   <p>Saturday: 10:00 AM - 4:00 PM</p>
                   <p>Sunday: Closed</p>
                 </div>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  These hours are in CST (China Standard Time), but our global team is available outside these hours as
+                  well.
+                </p>
               </div>
             </motion.div>
 
@@ -146,7 +167,7 @@ export default function ContactPage() {
                 <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" />
 
                 {/* Contact form card */}
-                <div className="relative bg-card/80 backdrop-blur-sm border border-indigo-500/20 rounded-xl p-8 shadow-xl">
+                <div className="relative bg-card/80 backdrop-blur-xs border border-indigo-500/20 rounded-xl p-8 shadow-xl">
                   {isSubmitted ? (
                     <motion.div
                       className="text-center py-12"
@@ -154,7 +175,7 @@ export default function ContactPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full flex items-center justify-center mb-6">
+                      <div className="w-20 h-20 mx-auto bg-linear-to-br from-indigo-500/20 to-purple-500/20 rounded-full flex items-center justify-center mb-6">
                         <CheckCircle className="h-10 w-10 text-indigo-400" />
                       </div>
                       <h3 className="text-2xl font-bold mb-4">Message Sent!</h3>
@@ -163,7 +184,7 @@ export default function ContactPage() {
                       </p>
                       <button
                         onClick={() => setIsSubmitted(false)}
-                        className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium transition-all hover:from-indigo-600 hover:to-purple-600"
+                        className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-linear-to-r from-indigo-500 to-purple-500 text-white font-medium transition-all hover:from-indigo-600 hover:to-purple-600"
                       >
                         Send Another Message
                       </button>
@@ -190,8 +211,9 @@ export default function ContactPage() {
                               value={formState.name}
                               onChange={handleChange}
                               required
-                              className="w-full px-4 py-3 rounded-lg bg-card/50 border border-indigo-500/20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors"
+                              className="w-full px-4 py-3 rounded-lg bg-card/50 border border-indigo-500/20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-colors"
                               placeholder="Your name"
+                              aria-label="Your name"
                             />
                           </div>
 
@@ -206,8 +228,9 @@ export default function ContactPage() {
                               value={formState.email}
                               onChange={handleChange}
                               required
-                              className="w-full px-4 py-3 rounded-lg bg-card/50 border border-indigo-500/20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors"
+                              className="w-full px-4 py-3 rounded-lg bg-card/50 border border-indigo-500/20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-colors"
                               placeholder="your.email@example.com"
+                              aria-label="Your email address"
                             />
                           </div>
                         </div>
@@ -223,8 +246,9 @@ export default function ContactPage() {
                             value={formState.subject}
                             onChange={handleChange}
                             required
-                            className="w-full px-4 py-3 rounded-lg bg-card/50 border border-indigo-500/20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors"
+                            className="w-full px-4 py-3 rounded-lg bg-card/50 border border-indigo-500/20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-colors"
                             placeholder="What's this about?"
+                            aria-label="Subject of your message"
                           />
                         </div>
 
@@ -239,13 +263,17 @@ export default function ContactPage() {
                             onChange={handleChange}
                             required
                             rows={5}
-                            className="w-full px-4 py-3 rounded-lg bg-card/50 border border-indigo-500/20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors resize-none"
+                            className="w-full px-4 py-3 rounded-lg bg-card/50 border border-indigo-500/20 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-colors resize-none"
                             placeholder="Tell us about your project or inquiry..."
+                            aria-label="Your message"
                           />
                         </div>
 
                         {error && (
-                          <div className="p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+                          <div
+                            className="p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm"
+                            role="alert"
+                          >
                             {error}
                           </div>
                         )}
@@ -253,7 +281,8 @@ export default function ContactPage() {
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className="w-full inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium transition-all hover:from-indigo-600 hover:to-purple-600 disabled:opacity-70"
+                          className="w-full inline-flex items-center justify-center px-6 py-3 rounded-lg bg-linear-to-r from-indigo-500 to-purple-500 text-white font-medium transition-all hover:from-indigo-600 hover:to-purple-600 disabled:opacity-70"
+                          aria-label="Send message"
                         >
                           {isSubmitting ? (
                             <>
@@ -262,6 +291,7 @@ export default function ContactPage() {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
+                                aria-hidden="true"
                               >
                                 <circle
                                   className="opacity-25"
@@ -338,7 +368,7 @@ export default function ContactPage() {
             ].map((faq, index) => (
               <motion.div
                 key={index}
-                className="bg-card/50 backdrop-blur-sm border border-indigo-500/20 rounded-lg p-6"
+                className="bg-card/50 backdrop-blur-xs border border-indigo-500/20 rounded-lg p-6"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -348,40 +378,6 @@ export default function ContactPage() {
                 <p className="text-muted-foreground text-sm">{faq.answer}</p>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="py-16 relative">
-        <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto">
-            <div className="bg-card/50 backdrop-blur-sm border border-indigo-500/20 rounded-xl overflow-hidden">
-              <div className="p-6 border-b border-indigo-500/20">
-                <h3 className="text-xl font-bold">Find us</h3>
-                <p className="text-muted-foreground">Visit our office in San Francisco</p>
-              </div>
-              <div className="aspect-video w-full relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5">
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <MapPin className="h-12 w-12 text-indigo-400 mx-auto mb-4" />
-                      <p className="text-lg font-medium mb-2">mdesk.tech headquarters</p>
-                      <p className="text-muted-foreground">123 Tech Boulevard, San Francisco, CA 94107</p>
-                      <a
-                        href="https://maps.google.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-indigo-400 mt-4 hover:underline"
-                      >
-                        Open in Google Maps
-                        <ArrowRight className="ml-1 h-4 w-4" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

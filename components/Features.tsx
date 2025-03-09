@@ -112,7 +112,7 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
         )}
 
         {/* Glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 blur-xl transition-opacity duration-500 -z-10 group-hover:opacity-20 rounded-lg" />
+        <div className="absolute inset-0 bg-linear-to-r from-indigo-500 to-purple-500 opacity-0 blur-xl transition-opacity duration-500 -z-10 group-hover:opacity-20 rounded-lg" />
 
         <motion.div
           className="bg-card rounded-lg border border-border/50 p-6 group-hover:border-transparent group-hover:bg-black/40 transition-colors duration-300 h-full flex flex-col z-10 relative"
@@ -121,8 +121,8 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="flex items-start gap-4 flex-grow">
-            <div className={`p-2 rounded-md bg-gradient-to-br ${feature.color} text-white`}>{feature.icon}</div>
+          <div className="flex items-start gap-4 grow">
+            <div className={`p-2 rounded-md bg-linear-to-br ${feature.color} text-white`}>{feature.icon}</div>
             <div className="flex-1">
               <h3
                 className={`text-xl font-semibold mb-2 transition-all duration-300 ${isHovering ? "text-gradient" : ""}`}
@@ -156,7 +156,7 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <div className={`p-2 rounded-md bg-gradient-to-br ${feature.color} text-white`}>{feature.icon}</div>
+              <div className={`p-2 rounded-md bg-linear-to-br ${feature.color} text-white`}>{feature.icon}</div>
               {feature.title}
             </DialogTitle>
             <DialogDescription>{feature.description}</DialogDescription>
@@ -213,7 +213,7 @@ const Features = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm mb-4">
+          <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-4">
             <span className="text-xs font-medium text-muted-foreground">Why choose us</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>

@@ -62,7 +62,7 @@ export default function About() {
         className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `radial-gradient(circle at 25px 25px, rgba(99, 102, 241, 0.15) 2%, transparent 0%), 
-                           radial-gradient(circle at 75px 75px, rgba(168, 85, 247, 0.15) 2%, transparent 0%)`,
+                       radial-gradient(circle at 75px 75px, rgba(168, 85, 247, 0.15) 2%, transparent 0%)`,
           backgroundSize: "100px 100px",
         }}
       />
@@ -156,7 +156,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Rest of the component remains unchanged */}
       {/* Navigation Tabs - Horizontal scrolling tabs */}
       <section className="py-8 border-y border-border/30 sticky top-20 bg-background/80 backdrop-blur-md z-20">
         <div className="container mx-auto px-6">
@@ -164,7 +163,6 @@ export default function About() {
             {[
               { id: "mission", label: "Our Mission" },
               { id: "journey", label: "Our Journey" },
-              { id: "team", label: "Our Team" },
               { id: "values", label: "Our Values" },
               { id: "approach", label: "Our Approach" },
             ].map((tab) => (
@@ -193,6 +191,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
+              className="bg-background/80 backdrop-blur-sm rounded-lg p-6 border border-border/30"
             >
               <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
               <p className="text-muted-foreground mb-6">
@@ -231,7 +230,7 @@ export default function About() {
               className="relative"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl blur-xl" />
-              <div className="relative bg-card border border-indigo-500/20 rounded-2xl p-8 overflow-hidden">
+              <div className="relative bg-card/80 backdrop-blur-sm border border-indigo-500/20 rounded-2xl p-8 overflow-hidden">
                 <div className="absolute -right-20 -top-20 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl" />
                 <div className="absolute -left-20 -bottom-20 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" />
 
@@ -287,7 +286,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center mb-12"
+            className="max-w-3xl mx-auto text-center mb-12 bg-background/80 backdrop-blur-md py-6 px-8 rounded-lg border border-indigo-500/20"
           >
             <h2 className="text-3xl font-bold mb-4">Our Journey</h2>
             <p className="text-muted-foreground">
@@ -318,22 +317,22 @@ export default function About() {
               },
               {
                 year: "2023",
-                title: "Team Growth",
-                description: "Expanded our team to include specialists in design, development, and strategy.",
-                icon: <Users className="h-5 w-5" />,
+                title: "Remote-First Culture",
+                description: "Established our remote-first culture, enabling us to work with talent worldwide.",
+                icon: <Globe className="h-5 w-5" />,
                 position: "left",
               },
               {
                 year: "2024",
-                title: "New Office",
-                description: "Moved into our new headquarters to accommodate our growing team.",
+                title: "Global Reach",
+                description: "Started working with clients across Europe, Asia, and North America.",
                 icon: <Globe className="h-5 w-5" />,
                 position: "right",
               },
               {
                 year: "2024",
-                title: "International Expansion",
-                description: "Started working with clients across Europe, Asia, and North America.",
+                title: "Innovation Focus",
+                description: "Expanded our service offerings with cutting-edge technologies and approaches.",
                 icon: <Award className="h-5 w-5" />,
                 position: "left",
               },
@@ -360,112 +359,17 @@ export default function About() {
 
                 {/* Content */}
                 <div
-                  className={`bg-card border border-border/50 rounded-lg p-6 ${
+                  className={`bg-background/90 backdrop-blur-md border border-indigo-500/30 rounded-lg p-6 shadow-lg ${
                     item.position === "left" ? "rounded-tr-none" : "rounded-tl-none"
                   }`}
                 >
                   <div className="text-sm font-medium text-indigo-400 mb-1">{item.year}</div>
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
+                  <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
+                  <p className="text-gray-300">{item.description}</p>
                 </div>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section id="team" className={`py-16 ${activeSection === "team" ? "block" : "hidden"}`}>
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold mb-4">Meet Our Team</h2>
-            <p className="text-muted-foreground">
-              Our diverse team brings together expertise in design, development, and digital strategy. We're united by
-              our passion for creating exceptional digital experiences.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Alex Johnson",
-                role: "Founder & CEO",
-                bio: "With over 10 years of experience in web development and digital strategy, Alex leads our team with vision and expertise.",
-                gradient: "from-indigo-500 to-purple-500",
-              },
-              {
-                name: "Sarah Chen",
-                role: "Lead Designer",
-                bio: "Sarah brings creative vision and user-centered design principles to every project, ensuring beautiful and functional experiences.",
-                gradient: "from-purple-500 to-pink-500",
-              },
-              {
-                name: "Marcus Williams",
-                role: "Head of Development",
-                bio: "Marcus oversees our development team, bringing technical excellence and innovation to complex challenges.",
-                gradient: "from-indigo-500 to-blue-500",
-              },
-              {
-                name: "Priya Patel",
-                role: "UX Specialist",
-                bio: "Priya ensures our digital products are intuitive, accessible, and deliver exceptional user experiences.",
-                gradient: "from-blue-500 to-indigo-500",
-              },
-              {
-                name: "David Kim",
-                role: "Full-Stack Developer",
-                bio: "David's expertise spans front-end and back-end technologies, creating seamless and powerful applications.",
-                gradient: "from-purple-500 to-indigo-500",
-              },
-              {
-                name: "Emma Rodriguez",
-                role: "Project Manager",
-                bio: "Emma keeps our projects on track, ensuring timely delivery and clear communication with clients.",
-                gradient: "from-pink-500 to-purple-500",
-              },
-            ].map((member, index) => (
-              <motion.div
-                key={index}
-                className="bg-card border border-border/50 rounded-lg overflow-hidden"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className={`h-3 bg-gradient-to-r ${member.gradient}`} />
-                <div className="p-6">
-                  <div className="w-16 h-16 rounded-full bg-muted/50 mb-4 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-gradient">{member.name.charAt(0)}</span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                  <div className="text-sm text-indigo-400 mb-4">{member.role}</div>
-                  <p className="text-muted-foreground text-sm">{member.bio}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            className="mt-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium transition-all hover:from-indigo-600 hover:to-purple-600"
-            >
-              Join Our Team
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </motion.div>
         </div>
       </section>
 
@@ -477,7 +381,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center mb-12"
+            className="max-w-3xl mx-auto text-center mb-12 bg-background/80 backdrop-blur-md py-6 px-8 rounded-lg border border-indigo-500/20"
           >
             <h2 className="text-3xl font-bold mb-4">Our Values</h2>
             <p className="text-muted-foreground">
@@ -518,7 +422,7 @@ export default function About() {
             ].map((value, index) => (
               <motion.div
                 key={index}
-                className="bg-card border border-border/50 rounded-lg p-6"
+                className="bg-background/90 backdrop-blur-md border border-indigo-500/30 rounded-lg p-6 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -527,8 +431,8 @@ export default function About() {
                 <div className={`w-12 h-12 rounded-lg ${value.color} flex items-center justify-center mb-4`}>
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-2">{value.title}</h3>
-                <p className="text-muted-foreground">{value.description}</p>
+                <h3 className="text-xl font-bold mb-2 text-white">{value.title}</h3>
+                <p className="text-gray-300">{value.description}</p>
 
                 <div className="mt-6 pt-6 border-t border-border/50">
                   <h4 className="text-sm font-medium mb-3">How we live this value:</h4>
@@ -536,7 +440,7 @@ export default function About() {
                     {[1, 2, 3].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <div className="mt-1 h-2 w-2 rounded-full bg-indigo-500/50 flex-shrink-0" />
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-sm text-gray-300">
                           {index === 0 && i === 0 && "Rigorous code reviews and quality assurance"}
                           {index === 0 && i === 1 && "Continuous learning and skill development"}
                           {index === 0 && i === 2 && "Attention to detail in every deliverable"}
@@ -571,7 +475,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center mb-12"
+            className="max-w-3xl mx-auto text-center mb-12 bg-background/80 backdrop-blur-md py-6 px-8 rounded-lg border border-indigo-500/20"
           >
             <h2 className="text-3xl font-bold mb-4">Our Approach</h2>
             <p className="text-muted-foreground">
@@ -582,39 +486,40 @@ export default function About() {
 
           {/* Process steps */}
           <div className="relative max-w-4xl mx-auto">
-            {/* Timeline line - updated with gradient and better positioning */}
+            {/* Timeline line - centered and starts below the first circle */}
             <div
-              className="absolute left-[31px] lg:left-[39px] top-[40px] bottom-8 w-0.5 bg-gradient-to-b from-indigo-500/50 via-purple-500/50 to-indigo-500/50"
+              className="absolute left-8 top-8 bottom-8 w-[1px] z-0"
               style={{
+                background: "linear-gradient(to bottom, rgba(99, 102, 241, 0.6) 50%, transparent 50%)",
                 backgroundSize: "1px 8px",
-                backgroundImage: "linear-gradient(to bottom, rgb(99 102 241 / 0.3) 50%, transparent 50%)",
               }}
             />
 
             {steps.map((step, index) => (
               <motion.div
                 key={index}
-                className="relative z-10 flex items-start gap-8 mb-12 last:mb-0"
+                className="relative flex items-start gap-8 mb-12 last:mb-0"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                {/* Step number - updated with better visual connection to line */}
-                <div className="relative">
+                {/* Step number - with solid background to hide line */}
+                <div className="relative z-10">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full opacity-20 blur-sm" />
-                  <div className="relative flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/30 flex items-center justify-center">
-                    <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+                  <div className="relative flex-shrink-0 w-16 h-16 rounded-full bg-background border border-indigo-500/30 flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/10 to-purple-500/10" />
+                    <span className="relative z-10 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
                       {step.number}
                     </span>
                   </div>
                 </div>
 
                 {/* Step content - updated with better spacing */}
-                <div className="flex-1 pt-3">
-                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
-                  <div className="mt-4 h-1 w-24 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30" />
+                <div className="flex-1 pt-3 bg-background/90 backdrop-blur-md rounded-lg p-6 border border-indigo-500/30 shadow-lg">
+                  <h3 className="text-xl font-bold mb-2 text-white">{step.title}</h3>
+                  <p className="text-gray-300">{step.description}</p>
+                  <div className="mt-4 h-1 w-24 rounded-full bg-gradient-to-r from-indigo-500/40 to-purple-500/40" />
                 </div>
               </motion.div>
             ))}
@@ -627,7 +532,7 @@ export default function About() {
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/20 to-purple-900/20 backdrop-blur-sm" />
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto bg-card border border-indigo-500/20 rounded-2xl p-12 text-center">
+          <div className="max-w-4xl mx-auto bg-card/80 backdrop-blur-sm border border-indigo-500/20 rounded-2xl p-12 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

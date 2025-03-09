@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useMemo } from "react"
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
 import { ArrowRight, Code, Globe, Zap } from "lucide-react"
 import Link from "next/link"
@@ -20,13 +20,10 @@ const Hero = () => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return
+
       const { clientX, clientY } = e
-      const { left, top, width, height } = containerRef.current?.getBoundingClientRect() || {
-        left: 0,
-        top: 0,
-        width: 0,
-        height: 0,
-      }
+      const { left, top, width, height } = containerRef.current.getBoundingClientRect()
       const x = (clientX - left) / width
       const y = (clientY - top) / height
 
@@ -34,11 +31,11 @@ const Hero = () => {
       mouseY.set(y)
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
     return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [mouseX, mouseY])
 
-  const springConfig = { damping: 40, stiffness: 300 }
+  const springConfig = useMemo(() => ({ damping: 40, stiffness: 300 }), [])
   const xSpring = useSpring(mouseX, springConfig)
   const ySpring = useSpring(mouseY, springConfig)
 
@@ -48,13 +45,13 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
       {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-background/80 z-0" />
+      <div className="absolute inset-0 bg-linear-to-b from-background to-background/80 z-0" />
       <div className="absolute inset-0 grid-pattern opacity-20 z-0" />
       <div className="absolute inset-0 noise z-0" />
 
       {/* Animated gradient orbs */}
       <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/20 blur-3xl"
+        className="absolute w-[500px] h-[500px] rounded-full bg-linear-to-r from-indigo-500/20 to-purple-500/20 blur-3xl"
         style={{
           x: useTransform(xSpring, [0, 1], [-100, 100]),
           y: useTransform(ySpring, [0, 1], [-100, 100]),
@@ -62,7 +59,7 @@ const Hero = () => {
       />
 
       <motion.div
-        className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-3xl"
+        className="absolute w-[300px] h-[300px] rounded-full bg-linear-to-r from-purple-500/20 to-pink-500/20 blur-3xl"
         style={{
           x: useTransform(xSpring, [0, 1], [100, -100]),
           y: useTransform(ySpring, [0, 1], [100, -100]),
@@ -79,7 +76,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm mb-6"
+            className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-6"
           >
             <span className="text-xs font-medium text-muted-foreground">Cutting-edge web solutions</span>
           </motion.div>
@@ -178,10 +175,9 @@ const Hero = () => {
     </section>
   )
 }
-
 const BrowserMockup = () => {
   return (
-    <div className="relative w-full aspect-[4/3] bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-lg border border-border/50 backdrop-blur-sm p-4 shadow-xl">
+    <div className="relative w-full aspect-4/3 bg-linear-to-br from-indigo-500/10 to-purple-500/10 rounded-lg border border-border/50 backdrop-blur-xs p-4 shadow-xl">
       {/* Browser chrome */}
       <div className="absolute top-0 left-0 right-0 h-8 bg-background/80 border-b border-border/50 rounded-t-lg flex items-center px-4">
         <div className="flex space-x-2">
@@ -197,21 +193,21 @@ const BrowserMockup = () => {
       {/* Browser content */}
       <div className="mt-8 space-y-4">
         <motion.div
-          className="h-8 w-3/4 bg-muted/50 rounded-md"
+          className="h-8 w-3/4 bg-muted/80 rounded-md"
           initial={{ width: 0 }}
           animate={{ width: "75%" }}
           transition={{ duration: 1, delay: 0.5 }}
         />
 
         <motion.div
-          className="h-4 w-1/2 bg-muted/50 rounded-md"
+          className="h-4 w-1/2 bg-muted/80 rounded-md"
           initial={{ width: 0 }}
           animate={{ width: "50%" }}
           transition={{ duration: 0.8, delay: 0.7 }}
         />
 
         <motion.div
-          className="h-4 w-2/3 bg-muted/50 rounded-md"
+          className="h-4 w-2/3 bg-muted/80 rounded-md"
           initial={{ width: 0 }}
           animate={{ width: "66%" }}
           transition={{ duration: 0.8, delay: 0.9 }}
@@ -221,7 +217,7 @@ const BrowserMockup = () => {
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
-              className="aspect-video bg-muted/30 rounded-md"
+              className="aspect-video bg-muted/60 rounded-md"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1 + i * 0.2 }}
@@ -230,7 +226,7 @@ const BrowserMockup = () => {
         </div>
 
         <motion.div
-          className="h-20 w-full bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-md mt-6"
+          className="h-20 w-full bg-linear-to-r from-indigo-500/40 to-purple-500/40 rounded-md mt-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.8 }}
@@ -249,7 +245,7 @@ const BrowserMockup = () => {
 
       {/* Floating elements */}
       <motion.div
-        className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg shadow-lg"
+        className="absolute -top-4 -right-4 w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-500 rounded-lg shadow-lg"
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
       >
@@ -259,7 +255,7 @@ const BrowserMockup = () => {
       </motion.div>
 
       <motion.div
-        className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-lg"
+        className="absolute -bottom-6 -left-6 w-20 h-20 bg-linear-to-br from-purple-500 to-pink-500 rounded-full shadow-lg"
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       >

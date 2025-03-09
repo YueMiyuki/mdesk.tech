@@ -1,28 +1,35 @@
-import { NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
+import { getCollection } from "@/lib/db"
 
-// Simple in-memory rate limiting
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000 // 1 hour in milliseconds
-const ipSubmissions: Record<string, number> = {} // Store IP -> timestamp
+// Rate limit window (1 hour in milliseconds)
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting
     const ip = request.headers.get("x-forwarded-for") || "unknown-ip"
 
-    // Check rate limit
-    const now = Date.now()
-    const lastSubmission = ipSubmissions[ip] || 0
-    const timeElapsed = now - lastSubmission
+    // Get MongoDB collection
+    const collection = await getCollection()
 
-    if (lastSubmission && timeElapsed < RATE_LIMIT_WINDOW) {
-      const minutesRemaining = Math.ceil((RATE_LIMIT_WINDOW - timeElapsed) / (60 * 1000))
-      return NextResponse.json(
-        {
-          error: "Rate limit exceeded",
-          message: `Please wait ${minutesRemaining} minute${minutesRemaining > 1 ? "s" : ""} before submitting another message.`,
-        },
-        { status: 429 },
-      )
+    // Check if this IP has submitted recently
+    const now = Date.now()
+    const result = await collection.findOne({ ip })
+
+    if (result) {
+      const lastSubmission = result.timestamp
+      const timeElapsed = now - lastSubmission
+
+      if (timeElapsed < RATE_LIMIT_WINDOW) {
+        const minutesRemaining = Math.ceil((RATE_LIMIT_WINDOW - timeElapsed) / (60 * 1000))
+        return NextResponse.json(
+          {
+            error: "Rate limit exceeded",
+            message: `Please wait ${minutesRemaining} minute${minutesRemaining > 1 ? "s" : ""} before submitting another message.`,
+          },
+          { status: 429 },
+        )
+      }
     }
 
     const body = await request.json()
@@ -44,7 +51,7 @@ export async function POST(request: Request) {
       embeds: [
         {
           title: "New Contact Form Submission",
-          color: 0x6366f1, // Indigo color
+          color: 0x6366f1,
           fields: [
             {
               name: "Name",
@@ -61,10 +68,6 @@ export async function POST(request: Request) {
             {
               name: "Message",
               value: message,
-            },
-            {
-              name: "IP Address",
-              value: ip,
             },
             {
               name: "Timestamp",
@@ -92,16 +95,8 @@ export async function POST(request: Request) {
       throw new Error(`Discord webhook error: ${response.statusText}`)
     }
 
-    ipSubmissions[ip] = now
-
-    if (Math.random() < 0.1) {
-      const cutoff = now - RATE_LIMIT_WINDOW
-      for (const storedIp in ipSubmissions) {
-        if (ipSubmissions[storedIp] < cutoff) {
-          delete ipSubmissions[storedIp]
-        }
-      }
-    }
+    // Update rate limit in MongoDB
+    await collection.updateOne({ ip }, { $set: { timestamp: now } }, { upsert: true })
 
     return NextResponse.json({ success: true })
   } catch (error) {

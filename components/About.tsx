@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { motion } from "framer-motion"
-import { Calendar, Users, Award, CheckCircle, ArrowRight } from "lucide-react"
+import { Calendar, Users, Award, CheckCircle } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -13,7 +13,6 @@ const About = () => {
   const tabs = [
     { id: "mission", label: "Our Mission" },
     { id: "story", label: "Our Story" },
-    { id: "team", label: "Our Team" },
   ]
 
   const tabContent = {
@@ -66,40 +65,6 @@ const About = () => {
             <div className="text-3xl font-bold text-primary mb-1">100+</div>
             <div className="text-sm text-muted-foreground">Projects delivered</div>
           </div>
-        </div>
-      </div>
-    ),
-    team: (
-      <div className="space-y-6">
-        <h3 className="text-2xl font-bold">Meet Our Experts</h3>
-        <p className="text-muted-foreground">
-          Our diverse team brings together expertise in design, development, and digital strategy. We're united by our
-          passion for creating exceptional digital experiences and our commitment to client success.
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-          {[
-            { role: "Design", count: 4 },
-            { role: "Development", count: 6 },
-            { role: "Strategy", count: 3 },
-            { role: "Support", count: 2 },
-          ].map((team, index) => (
-            <motion.div
-              key={index}
-              className="p-4 rounded-lg bg-card border border-border/50 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 * index }}
-            >
-              <div className="text-2xl font-bold mb-1">{team.count}</div>
-              <div className="text-sm text-muted-foreground">{team.role}</div>
-            </motion.div>
-          ))}
-        </div>
-        <div className="mt-4 text-center">
-          <Link href="/about" className="inline-flex items-center text-primary hover:underline">
-            Meet the full team
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
         </div>
       </div>
     ),
@@ -348,19 +313,19 @@ const About = () => {
                     key={`particle-${i}`}
                     className="absolute rounded-full bg-primary/40"
                     style={{
-                      width: 2 + Math.random() * 4,
-                      height: 2 + Math.random() * 4,
-                      left: `${10 + Math.random() * 80}%`,
-                      top: `${10 + Math.random() * 80}%`,
+                      width: 2 + (i % 4),
+                      height: 2 + (i % 4),
+                      left: `${10 + ((i * 4) % 80)}%`,
+                      top: `${10 + ((i * 5) % 80)}%`,
                     }}
                     animate={{
-                      x: [0, Math.random() * 100 - 50],
-                      y: [0, Math.random() * 100 - 50],
+                      x: [0, (i % 10) * 10 - 50],
+                      y: [0, (i % 8) * 12 - 50],
                       opacity: [0, 0.8, 0],
                       scale: [0, 1, 0],
                     }}
                     transition={{
-                      duration: 5 + Math.random() * 5,
+                      duration: 5 + (i % 5),
                       repeat: Number.POSITIVE_INFINITY,
                       ease: "easeInOut",
                       delay: i * 0.3,

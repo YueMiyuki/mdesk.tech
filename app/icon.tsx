@@ -12,7 +12,7 @@ export const size = {
 export const contentType = "image/png"
 
 // Image generation
-export default function Icon() {
+export default async function Icon() {
   return new ImageResponse(
     <div
       style={{

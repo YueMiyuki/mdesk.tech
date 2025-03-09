@@ -4,9 +4,14 @@ import { motion } from "framer-motion"
 import Logo from "@/components/Logo"
 import Link from "next/link"
 import { Github, Mail } from "lucide-react"
+import { useEffect, useState } from "react"
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const [currentYear, setCurrentYear] = useState(2024)
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear())
+  }, [])
 
   const socialLinks = [
     { icon: <Github className="h-5 w-5" />, href: "https://github.com", label: "GitHub" },

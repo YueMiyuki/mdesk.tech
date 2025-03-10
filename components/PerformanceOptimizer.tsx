@@ -34,9 +34,9 @@ export default function PerformanceOptimizer() {
 
         if (element instanceof HTMLImageElement || element instanceof HTMLLinkElement) {
           if (priority === "high") {
-            element.fetchPriority = "high"
+            element.setAttribute("fetchpriority", "high")
           } else if (priority === "low") {
-            element.fetchPriority = "low"
+            element.setAttribute("fetchpriority", "low")
           }
         }
 
@@ -90,18 +90,6 @@ export default function PerformanceOptimizer() {
       setTimeout(optimizeThirdPartyScripts, 1000)
       setTimeout(optimizeImages, 1500)
       setTimeout(reduceLayoutShifts, 2000)
-    }
-
-    // Monitor long tasks
-    if ("PerformanceObserver" in window) {
-      const longTaskObserver = new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry) => {
-          // Log long tasks for debugging
-          console.debug("Long task detected:", entry.duration, "ms")
-        })
-      })
-
-      longTaskObserver.observe({ entryTypes: ["longtask"] })
     }
 
     // Clean up

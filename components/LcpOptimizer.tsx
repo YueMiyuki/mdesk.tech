@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { preloadCriticalResources, optimizeLcpElement } from "@/lib/performance-utils"
+import { optimizeLcpElement } from "@/lib/performance-utils"
 
 // Define the LCP entry type
 interface LargestContentfulPaintEntry extends PerformanceEntry {
@@ -21,32 +21,33 @@ export default function LcpOptimizer() {
     if (typeof window === "undefined" || optimized.current) return
     optimized.current = true
 
-    // Preload critical resources
-    preloadCriticalResources()
-
     // Optimize LCP element immediately
     optimizeLcpElement()
 
     // Register a PerformanceObserver to identify the actual LCP element
     if ("PerformanceObserver" in window) {
-      const lcpObserver = new PerformanceObserver((entryList) => {
-        const entries = entryList.getEntries()
-        if (entries.length > 0) {
-          // Cast to the correct type
-          const lcpEntry = entries[entries.length - 1] as LargestContentfulPaintEntry
-          console.debug("LCP element:", lcpEntry)
+      try {
+        const lcpObserver = new PerformanceObserver((entryList) => {
+          const entries = entryList.getEntries()
+          if (entries.length > 0) {
+            // Cast to the correct type
+            const lcpEntry = entries[entries.length - 1] as LargestContentfulPaintEntry
+            console.debug("LCP element:", lcpEntry)
 
-          // Now TypeScript knows lcpEntry.element exists
-          if (lcpEntry.element && lcpEntry.element instanceof HTMLElement) {
-            lcpEntry.element.setAttribute("data-lcp-element", "true")
-            optimizeLcpElement() // Re-optimize with the confirmed LCP element
+            // Now TypeScript knows lcpEntry.element exists
+            if (lcpEntry.element && lcpEntry.element instanceof HTMLElement) {
+              lcpEntry.element.setAttribute("data-lcp-element", "true")
+              optimizeLcpElement() // Re-optimize with the confirmed LCP element
+            }
+
+            lcpObserver.disconnect()
           }
+        })
 
-          lcpObserver.disconnect()
-        }
-      })
-
-      lcpObserver.observe({ type: "largest-contentful-paint", buffered: true })
+        lcpObserver.observe({ type: "largest-contentful-paint", buffered: true })
+      } catch (error) {
+        console.error("Error setting up LCP observer:", error)
+      }
     }
 
     // Pre-allocate space for layout elements to prevent shifts
@@ -91,30 +92,6 @@ export default function LcpOptimizer() {
 
     optimizeFonts()
 
-    // Reduce JavaScript execution before LCP
-    const optimizeJsExecution = () => {
-      // Defer non-critical animations
-      const deferAnimations = () => {
-        // Add a class to the body to indicate that animations should be deferred
-        document.body.classList.add("defer-animations")
-
-        // After LCP, remove the class to enable animations
-        if ("requestIdleCallback" in window) {
-          window.requestIdleCallback(() => {
-            document.body.classList.remove("defer-animations")
-          })
-        } else {
-          setTimeout(() => {
-            document.body.classList.remove("defer-animations")
-          }, 1000) // Fallback for browsers without requestIdleCallback
-        }
-      }
-
-      deferAnimations()
-    }
-
-    optimizeJsExecution()
-
     // Add resource hints for external domains
     const addResourceHints = () => {
       const domains = [
@@ -134,24 +111,6 @@ export default function LcpOptimizer() {
     }
 
     addResourceHints()
-
-    // Delay non-critical JavaScript
-    const delayNonCriticalJS = () => {
-      // Find all non-critical scripts
-      document.querySelectorAll('script:not([data-priority="high"])').forEach((script) => {
-        if (
-          script instanceof HTMLScriptElement &&
-          script.src &&
-          !script.src.includes("chunk") &&
-          !script.src.includes("main")
-        ) {
-          script.setAttribute("defer", "")
-          script.setAttribute("async", "")
-        }
-      })
-    }
-
-    delayNonCriticalJS()
   }, [])
 
   return null

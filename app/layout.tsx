@@ -1,6 +1,5 @@
 import type React from "react"
 import "./globals.css"
-import "./critical.css"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import { GoogleAnalytics } from "@next/third-parties/google"
@@ -9,6 +8,8 @@ import Footer from "@/components/Footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
+import LcpOptimizer from "@/components/LcpOptimizer"
+import PerformanceOptimizer from "@/components/PerformanceOptimizer"
 
 // Optimize font loading
 const inter = Inter({
@@ -74,15 +75,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`} style={{ colorScheme: "dark" }}>
       <head>
-        {/* Preload critical assets */}
-        <link rel="preload" href="/fonts/GeistVF.woff" as="font" type="font/woff" crossOrigin="anonymous" />
-
-        {/* Preload critical CSS */}
-        <link rel="preload" href="/critical.css" as="style" />
-
-        {/* Preload LCP text font */}
-        <link rel="preload" href="/fonts/GeistVF.woff" as="font" type="font/woff" crossOrigin="anonymous" />
-
         {/* Add preconnect for external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -150,12 +142,6 @@ export default function RootLayout({
             `,
           }}
         />
-
-        {/* Add resource hints */}
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
       </head>
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider
@@ -176,6 +162,10 @@ export default function RootLayout({
             <Footer />
           </div>
 
+          {/* Client components for performance optimization */}
+          <LcpOptimizer />
+          <PerformanceOptimizer />
+
           {/* Defer non-critical scripts */}
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
@@ -195,77 +185,15 @@ export default function RootLayout({
             `}
           </Script>
 
-          {/* Load analytics with lower priority */}
-          <Analytics />
-          <SpeedInsights />
-          <GoogleAnalytics gaId="G-PNVSLSSS8V" />
+          {/* Load analytics only in production */}
+          {process.env.NODE_ENV === "production" && (
+            <>
+              <Analytics />
+              <SpeedInsights />
+              {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
+            </>
+          )}
         </ThemeProvider>
-
-        {/* Initialize optimizations */}
-        <Script id="performance-optimizations" strategy="afterInteractive">
-          {`
-            (function() {
-              // Optimize resource loading
-              const observer = new PerformanceObserver((list) => {
-                const entries = list.getEntries();
-                entries.forEach((entry) => {
-                  if (entry.name.includes('gtag') || entry.name.includes('analytics')) {
-                    const script = document.querySelector(\`script[src*="\${entry.name}"]\`);
-                    if (script) {
-                      script.setAttribute('fetchpriority', 'low');
-                      script.setAttribute('loading', 'lazy');
-                    }
-                  }
-                });
-              });
-              
-              observer.observe({ entryTypes: ['resource'] });
-              
-              // Optimize main thread
-              document.addEventListener('DOMContentLoaded', () => {
-                if ('requestIdleCallback' in window) {
-                  requestIdleCallback(() => {
-                    const scripts = document.querySelectorAll('script[data-priority="low"]');
-                    scripts.forEach((script) => {
-                      script.setAttribute('defer', '');
-                      script.setAttribute('loading', 'lazy');
-                    });
-                  });
-                }
-              });
-              
-              // Monitor Core Web Vitals
-              if ('PerformanceObserver' in window) {
-                // LCP
-                new PerformanceObserver((entryList) => {
-                  const entries = entryList.getEntries();
-                  const lastEntry = entries[entries.length - 1];
-                  console.debug('LCP:', lastEntry.startTime);
-                }).observe({ type: 'largest-contentful-paint', buffered: true });
-                
-                // FID
-                new PerformanceObserver((entryList) => {
-                  const entries = entryList.getEntries();
-                  entries.forEach((entry) => {
-                    console.debug('FID:', entry.processingStart - entry.startTime);
-                  });
-                }).observe({ type: 'first-input', buffered: true });
-                
-                // CLS
-                let clsValue = 0;
-                new PerformanceObserver((entryList) => {
-                  const entries = entryList.getEntries();
-                  entries.forEach((entry) => {
-                    if (!entry.hadRecentInput) {
-                      clsValue += entry.value;
-                      console.debug('CLS update:', clsValue);
-                    }
-                  });
-                }).observe({ type: 'layout-shift', buffered: true });
-              }
-            })();
-          `}
-        </Script>
       </body>
     </html>
   )

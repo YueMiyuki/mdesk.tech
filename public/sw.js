@@ -4,7 +4,7 @@ const CACHE_NAME = "mdesk-cache-v1"
 const RUNTIME_CACHE = "mdesk-runtime-v1"
 
 // Resources to cache on install
-const PRECACHE_URLS = ["/", "/index.html", "/fonts/inter-var.woff2", "/critical.css", "/app/globals.css"]
+const PRECACHE_URLS = ["/", "/index.html", "/fonts/GeistVF.woff", "/critical.css", "/app/globals.css"]
 
 // Install event - precache static assets
 self.addEventListener("install", (event) => {

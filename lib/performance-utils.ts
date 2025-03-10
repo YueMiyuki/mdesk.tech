@@ -47,8 +47,6 @@ declare global {
   
   // Combined performance optimization utilities
   
-  // ===== LOADING OPTIMIZATIONS =====
-  
   export function addPriorityHints() {
     if (typeof window === "undefined") return
   
@@ -79,8 +77,6 @@ declare global {
       script.setAttribute("loading", "lazy")
     })
   }
-  
-  // ===== ADVANCED OPTIMIZATIONS =====
   
   // Preload critical pages based on user behavior
   export function preloadLikelyDestinations() {
@@ -240,7 +236,7 @@ declare global {
     document.head.appendChild(style)
   
     // Preload critical fonts if not already preloaded
-    const criticalFonts = ["/fonts/inter-var.woff2"]
+    const criticalFonts = ["/fonts//fonts/GeistVF.woff"]
   
     criticalFonts.forEach((font) => {
       if (!document.querySelector(`link[rel="preload"][href="${font}"]`)) {
@@ -248,7 +244,7 @@ declare global {
         link.rel = "preload"
         link.href = font
         link.as = "font"
-        link.type = "font/woff2"
+        link.type = "font/woff"
         link.crossOrigin = "anonymous"
         document.head.appendChild(link)
       }
@@ -317,7 +313,7 @@ declare global {
   
     // Prefetch critical resources
     const prefetchResources = () => {
-      const resources = ["/fonts/inter-var.woff2", "/critical.css"]
+      const resources = ["/fonts/GeistVF.woff", "/critical.css"]
   
       resources.forEach((resource) => {
         const link = document.createElement("link")
@@ -627,7 +623,7 @@ declare global {
     // Add modulepreload for critical JavaScript
     const resources = [
       { href: "/main.js", as: "script", rel: "modulepreload" },
-      { href: "/fonts/inter-var.woff2", as: "font", type: "font/woff2" },
+      { href: "/fonts/GeistVF.woff", as: "font", type: "font/woff" },
     ]
   
     resources.forEach((resource) => {

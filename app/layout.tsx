@@ -1,6 +1,6 @@
 import type React from "react"
 import "./globals.css"
-import "./critical.css" // Import critical CSS first
+import "./critical.css"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import { GoogleAnalytics } from "@next/third-parties/google"
@@ -75,13 +75,13 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} dark`} style={{ colorScheme: "dark" }}>
       <head>
         {/* Preload critical assets */}
-        <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/GeistVF.woff" as="font" type="font/woff" crossOrigin="anonymous" />
 
         {/* Preload critical CSS */}
         <link rel="preload" href="/critical.css" as="style" />
 
         {/* Preload LCP text font */}
-        <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/GeistVF.woff" as="font" type="font/woff" crossOrigin="anonymous" />
 
         {/* Add preconnect for external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -153,7 +153,7 @@ export default function RootLayout({
 
         {/* Add resource hints */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
       </head>

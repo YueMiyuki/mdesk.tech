@@ -258,7 +258,7 @@ const Hero = () => {
           {isClient ? (
             <BrowserMockup shouldReduceMotion={shouldReduceMotion} isMobile={isMobile} />
           ) : (
-            <div className="lg:block" style={{ height: "400px" }} /> // Placeholder for layout stability
+            <div className="lg:block" style={{ height: "400px" }} />
           )}
         </div>
       </div>

@@ -1,3 +1,29 @@
+/* Critical CSS */
+:root {
+  --animate-duration: 0.5s;
+}
+
+/* Optimize paint performance */
+.composite-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Optimize animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
@@ -203,8 +229,7 @@
 }
 
 .grid-pattern {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
 }
@@ -213,3 +238,51 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   opacity: 0.05;
 }
+
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+.animate-gradient-x {
+  will-change: background-position;
+}
+
+.animate-float {
+  will-change: transform;
+}
+
+.animate-pulse {
+  will-change: opacity;
+}
+
+/* Performance optimizations */
+[data-lcp-element] {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 auto;
+}
+
+/* Optimize paint and composite layers */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.hardware-accelerated {
+  transform: translateZ(0);
+}
+
+/* Reduce layout shifts */
+.motion-safe {
+  transform: translateZ(0);
+}
+
+/* Optimize image rendering */
+img {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 auto;
+}
+

@@ -1,0 +1,25 @@
+{
+    "name": "mdesk.tech",
+    "short_name": "mdesk",
+    "description": "Designing and hosting your digital future",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f1117",
+    "theme_color": "#6366f1",
+    "icons": [
+      {
+        "src": "/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
+    ]
+  }
+  
+  

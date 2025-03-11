@@ -1,12 +1,6 @@
 "use client"
 
-import { DialogDescription } from "@/components/ui/dialog"
-
-import { DialogTitle } from "@/components/ui/dialog"
-
-import { DialogHeader } from "@/components/ui/dialog"
-
-import { DialogContent } from "@/components/ui/dialog"
+import { DialogDescription, DialogTitle, DialogHeader, DialogContent } from "@/components/ui/dialog"
 
 import type React from "react"
 import { useState, useRef } from "react"
@@ -26,57 +20,93 @@ interface Feature {
   details: string
   icon: React.ReactNode
   color: string
+  benefits: string[]
 }
 
 const features: Feature[] = [
   {
-    title: "Completely open source",
-    description: "Powered by powerful open-source projects, standing on giants' shoulders",
+    title: "Responsive Design",
+    description: "Websites that look and function perfectly on any device or screen size",
     details:
-      "We leverage the best open-source technologies like React, Next.js, and TailwindCSS to build robust, maintainable applications. This approach ensures transparency, security, and a vibrant ecosystem of support.",
-    icon: <Code className="h-6 w-6" />,
-    color: "from-indigo-500 to-purple-500",
-  },
-  {
-    title: "Dynamic HTML Streaming",
-    description: "Instantly stream UI from the server, integrated with the App Router and React Suspense.",
-    details:
-      "Our streaming technology allows for progressive rendering of content, dramatically improving perceived load times. Users see content appear incrementally rather than waiting for the entire page to load, creating a more responsive experience.",
-    icon: <Zap className="h-6 w-6" />,
-    color: "from-purple-500 to-indigo-500",
-  },
-  {
-    title: "React Server Components",
-    description:
-      "Add components without sending additional client-side JavaScript. Built on the latest React features.",
-    details:
-      "Server Components allow us to render complex UI on the server, reducing the JavaScript bundle sent to the client. This results in faster page loads, improved performance on mobile devices, and better SEO without sacrificing interactivity.",
+      "Our responsive design approach ensures your website adapts seamlessly to all devices - from desktops to tablets and smartphones. We use fluid grids, flexible images, and media queries to create an optimal viewing experience across all platforms.",
     icon: <Layers className="h-6 w-6" />,
-    color: "from-indigo-500 to-purple-600",
+    color: "from-blue-500 to-cyan-500",
+    benefits: [
+      "Improved user experience across all devices",
+      "Higher engagement and lower bounce rates",
+      "Better SEO rankings with mobile-friendly design",
+      "Future-proof layouts that adapt to new screen sizes",
+    ],
   },
   {
-    title: "AI-Powered Code Generation",
-    description: "Leverage machine learning to automate repetitive coding tasks and suggest optimizations.",
+    title: "Performance Optimization",
+    description: "Lightning-fast load times and smooth interactions for better user experience",
     details:
-      "Our AI tools analyze your codebase to identify patterns, suggest improvements, and even generate boilerplate code. This accelerates development while maintaining high quality standards and consistency across your project.",
-    icon: <Globe className="h-6 w-6" />,
-    color: "from-purple-500 to-pink-500",
+      "We optimize every aspect of your website for maximum performance. This includes code minification, image optimization, lazy loading, and implementing modern web technologies like HTTP/2 and browser caching to ensure your site loads quickly and runs smoothly.",
+    icon: <Zap className="h-6 w-6" />,
+    color: "from-green-500 to-emerald-500",
+    benefits: [
+      "Faster page load times and reduced server load",
+      "Lower bounce rates and higher conversion rates",
+      "Improved Core Web Vitals scores",
+      "Better user experience on slow connections",
+    ],
   },
   {
-    title: "Advanced Security Features",
-    description: "Built-in protection against common web vulnerabilities and automated security updates.",
+    title: "Accessibility Compliance",
+    description: "Inclusive design that ensures your website is usable by everyone",
     details:
-      "We implement industry-standard security practices including HTTPS, content security policies, and protection against XSS, CSRF, and SQL injection attacks. Regular automated security scans ensure your application remains protected against emerging threats.",
-    icon: <Lock className="h-6 w-6" />,
-    color: "from-indigo-600 to-purple-500",
-  },
-  {
-    title: "Real-time Collaboration",
-    description: "Enable seamless team collaboration with live editing and version control integration with coder.",
-    details:
-      "Our collaboration tools allow multiple team members to work on the same project simultaneously, with changes reflected in real-time. Built-in version control ensures nothing is ever lost, while commenting and approval workflows streamline the review process.",
+      "We build websites that follow WCAG guidelines, making them accessible to users with disabilities. This includes proper semantic HTML, keyboard navigation, screen reader compatibility, and appropriate color contrast to ensure your site is usable by everyone.",
     icon: <Users className="h-6 w-6" />,
-    color: "from-purple-500 to-indigo-500",
+    color: "from-orange-500 to-amber-500",
+    benefits: [
+      "Compliance with legal accessibility requirements",
+      "Expanded audience reach and inclusivity",
+      "Improved SEO through semantic markup",
+      "Enhanced usability for all users",
+    ],
+  },
+  {
+    title: "SEO Fundamentals",
+    description: "Built-in search engine optimization to improve your online visibility",
+    details:
+      "Our websites are built with SEO best practices from the ground up. We implement proper meta tags, semantic HTML, structured data, optimized images, and mobile-friendly designs to help your site rank higher in search engine results.",
+    icon: <Globe className="h-6 w-6" />,
+    color: "from-red-500 to-rose-500",
+    benefits: [
+      "Higher search engine rankings and visibility",
+      "Increased organic traffic and qualified leads",
+      "Improved local search presence",
+      "Technical SEO foundation that supports content marketing",
+    ],
+  },
+  {
+    title: "Content Management",
+    description: "Easy-to-use systems that let you update your website without technical knowledge",
+    details:
+      "We implement intuitive content management systems that empower you to update your website without coding knowledge. Our custom CMS solutions are tailored to your specific needs, making content updates, blog posts, and product listings simple to manage.",
+    icon: <Code className="h-6 w-6" />,
+    color: "from-violet-500 to-purple-500",
+    benefits: [
+      "Reduced dependency on developers for content updates",
+      "Streamlined workflow for content creation and publishing",
+      "Customized admin interfaces for your specific needs",
+      "Version control and content scheduling capabilities",
+    ],
+  },
+  {
+    title: "Data Privacy & Security",
+    description: "Robust protection for your website and your users' data",
+    details:
+      "We implement comprehensive security measures including SSL encryption, secure authentication, regular security audits, and GDPR compliance. Our approach ensures your website is protected against common vulnerabilities and your users' data remains private and secure.",
+    icon: <Lock className="h-6 w-6" />,
+    color: "from-pink-500 to-fuchsia-500",
+    benefits: [
+      "Protection against common security vulnerabilities",
+      "GDPR and privacy regulation compliance",
+      "Secure user authentication and data handling",
+      "Regular security updates and monitoring",
+    ],
   },
 ]
 
@@ -189,10 +219,9 @@ const FeatureCard = ({
             <div className="mt-6 p-4 rounded-lg bg-muted/30 border border-border">
               <h4 className="text-sm font-semibold mb-2">Key Benefits:</h4>
               <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
-                <li>Enhanced performance and reliability</li>
-                <li>Seamless integration with modern workflows</li>
-                <li>Scalable and future-proof solutions</li>
-                <li>Comprehensive documentation and support</li>
+                {feature.benefits.map((benefit, i) => (
+                  <li key={i}>{benefit}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -239,10 +268,9 @@ const Features = () => {
           <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-4">
             <span className="text-xs font-medium text-muted-foreground">Why choose us</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Core Capabilities</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Our platform combines cutting-edge technologies with intuitive design to deliver exceptional digital
-            experiences.
+            Our development approach incorporates these essential features to create exceptional digital experiences.
           </p>
         </motion.div>
 

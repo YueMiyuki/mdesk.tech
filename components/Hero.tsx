@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useMemo, useState } from "react"
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
-import { ArrowRight, Code, Globe, Zap } from 'lucide-react'
+import { ArrowRight, Code, Globe, Zap } from "lucide-react"
 import Link from "next/link"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 
@@ -33,8 +33,6 @@ const Hero = () => {
 
     // Initial check
     checkMobile()
-
-    // Add resize listener to update mobile state when window is resized
     window.addEventListener("resize", checkMobile)
 
     // Store mousemove handler reference for cleanup
@@ -97,7 +95,7 @@ const Hero = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 composite-layer"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 sm:pt-28 md:pt-20 composite-layer"
       style={{
         contain: "layout size",
         containIntrinsicSize: "0 100vh",
@@ -298,7 +296,7 @@ const BrowserMockup = ({
   isMobile = false,
 }: { shouldReduceMotion: boolean; isMobile?: boolean }) => {
   return (
-    <motion.div 
+    <motion.div
       className="relative w-full aspect-4/3 bg-linear-to-br from-indigo-500/10 to-purple-500/10 rounded-lg border border-border/50 backdrop-blur-xs p-4 shadow-xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -318,19 +316,19 @@ const BrowserMockup = ({
 
       {/* Browser content - simplified for better performance */}
       <div className="mt-8 space-y-4">
-        <motion.div 
+        <motion.div
           className="h-8 w-3/4 bg-muted/80 rounded-md"
           animate={{ width: ["60%", "75%", "60%"] }}
           transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
         />
-        
-        <motion.div 
+
+        <motion.div
           className="h-4 w-1/2 bg-muted/80 rounded-md"
           animate={{ width: ["40%", "50%", "40%"] }}
           transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 0.5 }}
         />
-        
-        <motion.div 
+
+        <motion.div
           className="h-4 w-2/3 bg-muted/80 rounded-md"
           animate={{ width: ["55%", "65%", "55%"] }}
           transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
@@ -338,33 +336,33 @@ const BrowserMockup = ({
 
         <div className="grid grid-cols-3 gap-3 mt-6">
           {[0, 1, 2].map((i) => (
-            <motion.div 
-              key={i} 
+            <motion.div
+              key={i}
               className="aspect-video bg-muted/60 rounded-md"
               animate={{ opacity: [0.6, 0.8, 0.6] }}
-              transition={{ 
-                duration: 4, 
-                repeat: Number.POSITIVE_INFINITY, 
+              transition={{
+                duration: 4,
+                repeat: Number.POSITIVE_INFINITY,
                 ease: "easeInOut",
-                delay: i * 0.7
+                delay: i * 0.7,
               }}
             />
           ))}
         </div>
 
-        <motion.div 
+        <motion.div
           className="h-20 w-full bg-linear-to-r from-indigo-500/40 to-purple-500/40 rounded-md mt-6"
-          animate={{ 
+          animate={{
             background: [
               "linear-gradient(to right, rgba(99, 102, 241, 0.4), rgba(168, 85, 247, 0.4))",
               "linear-gradient(to right, rgba(168, 85, 247, 0.4), rgba(99, 102, 241, 0.4))",
-              "linear-gradient(to right, rgba(99, 102, 241, 0.4), rgba(168, 85, 247, 0.4))"
-            ]
+              "linear-gradient(to right, rgba(99, 102, 241, 0.4), rgba(168, 85, 247, 0.4))",
+            ],
           }}
           transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
         >
           <div className="h-full flex items-center justify-center">
-            <motion.div 
+            <motion.div
               className="w-8 h-8 rounded-full bg-primary/30 flex items-center justify-center"
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
@@ -376,11 +374,11 @@ const BrowserMockup = ({
       </div>
 
       {/* Floating elements */}
-      <motion.div 
+      <motion.div
         className="absolute -top-4 -right-4 w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-500 rounded-lg shadow-lg"
-        animate={{ 
+        animate={{
           rotate: [0, 10, -10, 0],
-          scale: [1, 1.05, 0.95, 1]
+          scale: [1, 1.05, 0.95, 1],
         }}
         transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       >
@@ -389,11 +387,11 @@ const BrowserMockup = ({
         </div>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="absolute -bottom-6 -left-6 w-20 h-20 bg-linear-to-br from-purple-500 to-pink-500 rounded-full shadow-lg"
-        animate={{ 
+        animate={{
           rotate: [0, -10, 10, 0],
-          scale: [1, 1.05, 0.95, 1]
+          scale: [1, 1.05, 0.95, 1],
         }}
         transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 0.5 }}
       >
@@ -406,3 +404,4 @@ const BrowserMockup = ({
 }
 
 export default Hero
+

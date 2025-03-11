@@ -1,17 +1,11 @@
 "use client"
 
-import { DialogDescription } from "@/components/ui/dialog"
-
-import { DialogTitle } from "@/components/ui/dialog"
-
-import { DialogHeader } from "@/components/ui/dialog"
-
-import { DialogContent } from "@/components/ui/dialog"
+import { DialogDescription, DialogTitle, DialogHeader, DialogContent } from "@/components/ui/dialog"
 
 import type React from "react"
 import { useState, useRef } from "react"
 import { motion } from "framer-motion"
-import { Palette, Code2, Server, BarChart, ArrowRight } from "lucide-react"
+import { Palette, Code2, Server, BarChart, ArrowRight, ShieldCheck, Smartphone } from "lucide-react"
 import dynamic from "next/dynamic"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 
@@ -26,6 +20,7 @@ interface Service {
   details: string
   icon: React.ReactNode
   color: string
+  benefits: string[]
 }
 
 const services: Service[] = [
@@ -36,6 +31,12 @@ const services: Service[] = [
       "Our design team creates beautiful, intuitive interfaces that reflect your brand identity and engage your users. We focus on responsive design, ensuring your website looks great on all devices.",
     icon: <Palette className="h-8 w-8" />,
     color: "from-blue-500 to-indigo-500",
+    benefits: [
+      "Unique designs that reflect your brand identity",
+      "User-centered interfaces that boost engagement",
+      "Consistent visual language across all pages",
+      "Conversion-focused layouts that drive results",
+    ],
   },
   {
     title: "Web Development",
@@ -44,6 +45,12 @@ const services: Service[] = [
       "We build powerful web applications using the latest technologies like React, Next.js, and Node.js. Our development process ensures clean, maintainable code that can scale with your business.",
     icon: <Code2 className="h-8 w-8" />,
     color: "from-indigo-500 to-purple-500",
+    benefits: [
+      "Custom functionality tailored to your business needs",
+      "Scalable architecture that grows with your company",
+      "Clean, well-documented code for easy maintenance",
+      "Integration with third-party services and APIs",
+    ],
   },
   {
     title: "Hosting Solutions",
@@ -52,6 +59,12 @@ const services: Service[] = [
       "Our hosting solutions provide the reliability, security, and performance your website needs. We offer managed hosting with 24/7 monitoring, automatic backups, and expert support.",
     icon: <Server className="h-8 w-8" />,
     color: "from-purple-500 to-pink-500",
+    benefits: [
+      "99.9% uptime guarantee for maximum availability",
+      "Automatic backups and disaster recovery",
+      "Optimized server configurations for your specific needs",
+      "Proactive monitoring and issue resolution",
+    ],
   },
   {
     title: "SEO Optimization",
@@ -60,6 +73,40 @@ const services: Service[] = [
       "Our SEO experts will help your website rank higher in search results, driving more organic traffic to your business. We use data-driven strategies to optimize your content and structure.",
     icon: <BarChart className="h-8 w-8" />,
     color: "from-pink-500 to-rose-500",
+    benefits: [
+      "Comprehensive keyword research and strategy",
+      "On-page and technical SEO optimization",
+      "Content strategy aligned with search intent",
+      "Regular performance reporting and analysis",
+    ],
+  },
+  {
+    title: "Mobile App Development",
+    description: "Native and cross-platform mobile applications for iOS and Android.",
+    details:
+      "We develop high-performance mobile applications that provide seamless user experiences across all devices. Our expertise spans native iOS and Android development as well as cross-platform solutions.",
+    icon: <Smartphone className="h-8 w-8" />,
+    color: "from-emerald-500 to-teal-500",
+    benefits: [
+      "Intuitive user interfaces optimized for mobile",
+      "Offline functionality and data synchronization",
+      "Integration with device features (camera, GPS, etc.)",
+      "Automated testing and quality assurance",
+    ],
+  },
+  {
+    title: "Security Audits",
+    description: "Comprehensive security assessments and vulnerability testing.",
+    details:
+      "Our security experts conduct thorough audits of your web applications to identify and address potential vulnerabilities. We provide detailed reports and recommendations to strengthen your security posture.",
+    icon: <ShieldCheck className="h-8 w-8" />,
+    color: "from-amber-500 to-orange-500",
+    benefits: [
+      "Identification of security vulnerabilities and risks",
+      "Penetration testing and ethical hacking",
+      "Compliance assessment (GDPR, HIPAA, PCI DSS)",
+      "Security best practices implementation",
+    ],
   },
 ]
 
@@ -138,6 +185,39 @@ const ServiceCard = ({
         ],
         transition: {
           duration: 3,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        },
+      },
+    },
+    // Rotate slightly
+    {
+      animate: {
+        rotate: [0, 5, -5, 0],
+        filter: [
+          "drop-shadow(0 0 0px rgba(236, 72, 153, 0.5))",
+          "drop-shadow(0 0 8px rgba(236, 72, 153, 0.8))",
+          "drop-shadow(0 0 0px rgba(236, 72, 153, 0.5))",
+        ],
+        transition: {
+          duration: 2.5,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        },
+      },
+    },
+    // Pulse with opacity
+    {
+      animate: {
+        opacity: [1, 0.8, 1],
+        scale: [1, 1.05, 1],
+        filter: [
+          "drop-shadow(0 0 0px rgba(16, 185, 129, 0.5))",
+          "drop-shadow(0 0 8px rgba(16, 185, 129, 0.8))",
+          "drop-shadow(0 0 0px rgba(16, 185, 129, 0.5))",
+        ],
+        transition: {
+          duration: 2.2,
           repeat: Number.POSITIVE_INFINITY,
           ease: "easeInOut",
         },
@@ -237,10 +317,9 @@ const ServiceCard = ({
             <div className="mt-6 p-4 rounded-lg bg-muted/30 border border-border">
               <h4 className="text-sm font-semibold mb-2">Key Benefits:</h4>
               <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
-                <li>Enhanced performance and reliability</li>
-                <li>Seamless integration with modern workflows</li>
-                <li>Scalable and future-proof solutions</li>
-                <li>Comprehensive documentation and support</li>
+                {service.benefits.map((benefit, i) => (
+                  <li key={i}>{benefit}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -296,7 +375,7 @@ const Services = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-full">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />
           ))}

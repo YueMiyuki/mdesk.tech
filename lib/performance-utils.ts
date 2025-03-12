@@ -1,3 +1,6 @@
+// This code is fully written by v0.dev
+// For optimizaing the Speed Insight performance on mobile
+
 declare global {
   interface Window {
     gtag: (
@@ -312,22 +315,6 @@ export function optimizeJavaScript() {
     window.requestIdleCallback(prefetchResources)
   }
 
-  // Implement code-splitting for event handlers
-  document.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement
-
-    // Dynamically import modules based on user interaction
-    if (target.closest("[data-dynamic-import]")) {
-      const moduleName = target.closest("[data-dynamic-import]")?.getAttribute("data-dynamic-import")
-
-      if (moduleName) {
-        // This is just a placeholder - in a real app, you would import actual modules
-        console.log(`Would dynamically import: ${moduleName}`)
-        // import(`/components/${moduleName}.js`).then(mod => mod.default())
-      }
-    }
-  })
-
   // On mobile, disable some animations to improve performance
   if (window.innerWidth < 768) {
     document.documentElement.classList.add("reduce-motion")
@@ -451,9 +438,8 @@ export function setupMemoryManagement() {
 export function optimizeLcpElements() {
   if (typeof window === "undefined") return
 
-  // Find potential LCP elements
   const lcpCandidates = [
-    document.querySelector("h1"), // Hero heading is often the LCP
+    document.querySelector("h1"), 
     ...Array.from(document.querySelectorAll("[data-lcp-element]")),
     ...Array.from(document.querySelectorAll("img")).slice(0, 3), // First few images
     ...Array.from(document.querySelectorAll("section")).slice(0, 1), // First section

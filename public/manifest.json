@@ -1,25 +1,23 @@
 {
-    "name": "mdesk.tech",
-    "short_name": "mdesk",
-    "description": "Designing and hosting your digital future",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#0f1117",
-    "theme_color": "#6366f1",
-    "icons": [
-      {
-        "src": "/favicon-64.png",
-        "sizes": "64x64",
-        "type": "image/png",
-        "purpose": "any maskable"
-      },
-      {
-        "src": "/favicon-48.png",
-        "sizes": "48x48",
-        "type": "image/png",
-        "purpose": "any maskable"
-      }
-    ]
-  }
-  
-  
+  "name": "mdesk.tech",
+  "short_name": "mdesk",
+  "description": "Designing and hosting your digital future",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1117",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "/favicon-64.png",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

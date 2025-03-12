@@ -1,26 +1,36 @@
-"use client"
+"use client";
 
-import { DialogDescription, DialogTitle, DialogHeader, DialogContent } from "@/components/ui/dialog"
+import {
+  DialogDescription,
+  DialogTitle,
+  DialogHeader,
+  DialogContent,
+} from "@/components/ui/dialog";
 
-import type React from "react"
-import { useState, useRef } from "react"
-import { motion } from "framer-motion"
-import { Palette, Code2, Server, BarChart, ArrowRight } from "lucide-react"
-import dynamic from "next/dynamic"
-import { useReducedMotion } from "@/hooks/use-reduced-motion"
+import type React from "react";
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { Palette, Code2, Server, BarChart, ArrowRight } from "lucide-react";
+import dynamic from "next/dynamic";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
-const Dialog = dynamic(() => import("@/components/ui/dialog").then((mod) => mod.Dialog), {
-  ssr: false,
-  loading: () => <div className="w-full h-full bg-card/50 animate-pulse rounded-lg" />,
-})
+const Dialog = dynamic(
+  () => import("@/components/ui/dialog").then((mod) => mod.Dialog),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full bg-card/50 animate-pulse rounded-lg" />
+    ),
+  },
+);
 
 interface Service {
-  title: string
-  description: string
-  details: string
-  icon: React.ReactNode
-  color: string
-  benefits: string[]
+  title: string;
+  description: string;
+  details: string;
+  icon: React.ReactNode;
+  color: string;
+  benefits: string[];
 }
 
 const services: Service[] = [
@@ -40,7 +50,8 @@ const services: Service[] = [
   },
   {
     title: "Web Development",
-    description: "Robust, scalable web applications built with cutting-edge tech.",
+    description:
+      "Robust, scalable web applications built with cutting-edge tech.",
     details:
       "We build powerful web applications using the latest technologies like React, Next.js, and Node.js. Our development process ensures clean, maintainable code that can scale with your business.",
     icon: <Code2 className="h-8 w-8" />,
@@ -80,29 +91,29 @@ const services: Service[] = [
       "Regular performance reporting and analysis",
     ],
   },
-]
+];
 
 const ServiceCard = ({
   service,
   index,
 }: {
-  service: Service
-  index: number
+  service: Service;
+  index: number;
 }) => {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const [showDialog, setShowDialog] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect()
+      const rect = cardRef.current.getBoundingClientRect();
     }
-    setIsHovering(true)
-  }
+    setIsHovering(true);
+  };
 
   const handleMouseLeave = () => {
-    setIsHovering(false)
-  }
+    setIsHovering(false);
+  };
 
   return (
     <>
@@ -144,7 +155,11 @@ const ServiceCard = ({
         >
           <div className="grow p-8">
             <div className="flex items-start gap-6">
-              <div className={`p-4 rounded-lg bg-linear-to-br ${service.color} text-white`}>{service.icon}</div>
+              <div
+                className={`p-4 rounded-lg bg-linear-to-br ${service.color} text-white`}
+              >
+                {service.icon}
+              </div>
               <div className="flex-1">
                 <h2
                   className={`text-2xl font-semibold mb-2 transition-all duration-300 ${isHovering ? "text-gradient" : ""}`}
@@ -161,7 +176,9 @@ const ServiceCard = ({
               className={`inline-flex items-center text-primary transition-all duration-300 ${isHovering ? "text-gradient font-medium" : ""}`}
             >
               Learn more about {service.title.toLowerCase()}
-              <div className={`ml-2 transition-transform duration-300 ${isHovering ? "translate-x-2" : ""}`}>
+              <div
+                className={`ml-2 transition-transform duration-300 ${isHovering ? "translate-x-2" : ""}`}
+              >
                 <ArrowRight className="h-4 w-4" />
               </div>
             </div>
@@ -173,7 +190,11 @@ const ServiceCard = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <div className={`p-3 rounded-md bg-linear-to-br ${service.color} text-white`}>{service.icon}</div>
+              <div
+                className={`p-3 rounded-md bg-linear-to-br ${service.color} text-white`}
+              >
+                {service.icon}
+              </div>
               {service.title}
             </DialogTitle>
             <DialogDescription>{service.description}</DialogDescription>
@@ -213,11 +234,11 @@ const ServiceCard = ({
         }
       `}</style>
     </>
-  )
-}
+  );
+};
 
 const Services = () => {
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section
@@ -232,15 +253,20 @@ const Services = () => {
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={shouldReduceMotion ? { duration: 0.1 } : { duration: 0.8 }}
+          transition={
+            shouldReduceMotion ? { duration: 0.1 } : { duration: 0.8 }
+          }
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-4">
-            <span className="text-xs font-medium text-muted-foreground">What we offer</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              What we offer
+            </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            We provide comprehensive web solutions to help your business thrive in the digital landscape.
+            We provide comprehensive web solutions to help your business thrive
+            in the digital landscape.
           </p>
         </motion.div>
 
@@ -251,8 +277,7 @@ const Services = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Services
-
+export default Services;

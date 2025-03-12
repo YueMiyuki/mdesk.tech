@@ -1,15 +1,15 @@
-import type React from "react"
-import "./globals.css"
-import { Inter } from "next/font/google"
-import { Analytics } from "@vercel/analytics/react"
-import { GoogleAnalytics } from "@next/third-parties/google"
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
-import { ThemeProvider } from "@/components/theme-provider"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import Script from "next/script"
-import LcpOptimizer from "@/components/LcpOptimizer"
-import PerformanceOptimizer from "@/components/PerformanceOptimizer"
+import type React from "react";
+import "./globals.css";
+import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/theme-provider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
+import LcpOptimizer from "@/components/LcpOptimizer";
+import PerformanceOptimizer from "@/components/PerformanceOptimizer";
 
 // Optimize font loading
 const inter = Inter({
@@ -19,18 +19,21 @@ const inter = Inter({
   fallback: ["system-ui", "sans-serif"],
   adjustFontFallback: true,
   variable: "--font-inter",
-})
+});
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-}
+};
 
 export const metadata = {
   title: "mdesk.tech - Designing and hosting your digital future",
-  description: "mdesk.tech specializes in cutting-edge web design and reliable hosting solutions.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://mdesk.tech"),
+  description:
+    "mdesk.tech specializes in cutting-edge web design and reliable hosting solutions.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://mdesk.tech",
+  ),
   icons: {
     icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
     apple: "/apple-touch-icon.png",
@@ -65,19 +68,27 @@ export const metadata = {
     google: "google-site-verification-code",
   },
   manifest: "/manifest.json",
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} dark`} style={{ colorScheme: "dark" }}>
+    <html
+      lang="en"
+      className={`${inter.variable} dark`}
+      style={{ colorScheme: "dark" }}
+    >
       <head>
         {/* Add preconnect for external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
 
@@ -172,7 +183,11 @@ export default function RootLayout({
             strategy="lazyOnload"
             data-priority="low"
           />
-          <Script id="google-analytics" strategy="lazyOnload" data-priority="low">
+          <Script
+            id="google-analytics"
+            strategy="lazyOnload"
+            data-priority="low"
+          >
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -190,12 +205,13 @@ export default function RootLayout({
             <>
               <Analytics />
               <SpeedInsights />
-              {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
+              {process.env.NEXT_PUBLIC_GA_ID && (
+                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+              )}
             </>
           )}
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
-

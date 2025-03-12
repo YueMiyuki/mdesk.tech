@@ -1,42 +1,48 @@
-"use client"
+"use client";
 
-import { useRef, useEffect, useMemo, useState } from "react"
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
-import { ArrowRight, Code, Globe, Zap } from "lucide-react"
-import Link from "next/link"
-import { useReducedMotion } from "@/hooks/use-reduced-motion"
+import { useRef, useEffect, useMemo, useState } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import { ArrowRight, Code, Globe, Zap } from "lucide-react";
+import Link from "next/link";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const Hero = () => {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const shouldReduceMotion = useReducedMotion()
-  const [isClient, setIsClient] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const shouldReduceMotion = useReducedMotion();
+  const [isClient, setIsClient] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Only enable client-side features after hydration
   useEffect(() => {
     // Mark LCP element as visible immediately
-    const lcpElement = document.querySelector("[data-lcp-element]")
+    const lcpElement = document.querySelector("[data-lcp-element]");
     if (lcpElement && lcpElement instanceof HTMLElement) {
-      lcpElement.style.opacity = "1"
-      lcpElement.style.visibility = "visible"
+      lcpElement.style.opacity = "1";
+      lcpElement.style.visibility = "visible";
     }
 
     // Set isClient state to true after hydration
-    setIsClient(true)
+    setIsClient(true);
 
     // Check if on mobile
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
+      setIsMobile(window.innerWidth < 768);
+    };
 
     // Initial check
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
 
     // Store mousemove handler reference for cleanup
-    let mouseMoveHandler: ((e: MouseEvent) => void) | null = null
+    let mouseMoveHandler: ((e: MouseEvent) => void) | null = null;
 
     // Defer non-critical animations
     const deferAnimations = () => {
@@ -45,52 +51,55 @@ const Hero = () => {
           // Now initialize animations after LCP is rendered
           if (containerRef.current) {
             mouseMoveHandler = (e: MouseEvent) => {
-              if (!containerRef.current) return
-              const { clientX, clientY } = e
-              const { left, top, width, height } = containerRef.current.getBoundingClientRect()
-              const x = (clientX - left) / width
-              const y = (clientY - top) / height
-              mouseX.set(x)
-              mouseY.set(y)
-            }
-            window.addEventListener("mousemove", mouseMoveHandler, { passive: true })
+              if (!containerRef.current) return;
+              const { clientX, clientY } = e;
+              const { left, top, width, height } =
+                containerRef.current.getBoundingClientRect();
+              const x = (clientX - left) / width;
+              const y = (clientY - top) / height;
+              mouseX.set(x);
+              mouseY.set(y);
+            };
+            window.addEventListener("mousemove", mouseMoveHandler, {
+              passive: true,
+            });
           }
-        })
+        });
       }
-    }
+    };
 
     // Use requestIdleCallback to defer non-critical work
     if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(deferAnimations)
+      window.requestIdleCallback(deferAnimations);
     } else {
-      setTimeout(deferAnimations, 50)
+      setTimeout(deferAnimations, 50);
     }
 
     // Cleanup function
     return () => {
       if (mouseMoveHandler) {
-        window.removeEventListener("mousemove", mouseMoveHandler)
+        window.removeEventListener("mousemove", mouseMoveHandler);
       }
-      window.removeEventListener("resize", checkMobile)
-    }
-  }, [mouseX, mouseY])
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, [mouseX, mouseY]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
-  })
+  });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const springConfig = useMemo(() => ({ damping: 40, stiffness: 300 }), [])
-  const xSpring = useSpring(mouseX, springConfig)
-  const ySpring = useSpring(mouseY, springConfig)
+  const springConfig = useMemo(() => ({ damping: 40, stiffness: 300 }), []);
+  const xSpring = useSpring(mouseX, springConfig);
+  const ySpring = useSpring(mouseY, springConfig);
 
-  const xTransform = useTransform(xSpring, [0, 1], [-100, 100])
-  const yTransform1 = useTransform(ySpring, [0, 1], [-100, 100])
-  const yTransform2 = useTransform(ySpring, [0, 1], [100, -100])
-  const xTransform2 = useTransform(xSpring, [0, 1], [100, -100])
+  const xTransform = useTransform(xSpring, [0, 1], [-100, 100]);
+  const yTransform1 = useTransform(ySpring, [0, 1], [-100, 100]);
+  const yTransform2 = useTransform(ySpring, [0, 1], [100, -100]);
+  const xTransform2 = useTransform(xSpring, [0, 1], [100, -100]);
 
   return (
     <section
@@ -187,7 +196,9 @@ const Hero = () => {
       >
         <div>
           <div className="inline-flex items-center px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-xs mb-6">
-            <span className="text-xs font-medium text-muted-foreground">Cutting-edge web solutions</span>
+            <span className="text-xs font-medium text-muted-foreground">
+              Cutting-edge web solutions
+            </span>
           </div>
 
           <h1
@@ -199,7 +210,8 @@ const Hero = () => {
               contentVisibility: "visible",
             }}
           >
-            Designing Your <span className="text-gradient glow-text">Digital Future</span>
+            Designing Your{" "}
+            <span className="text-gradient glow-text">Digital Future</span>
           </h1>
 
           <p
@@ -210,16 +222,18 @@ const Hero = () => {
               containIntrinsicSize: "0 50px",
             }}
           >
-            Cutting-edge web design and reliable hosting solutions for businesses that want to stand out in the digital
-            landscape.
+            Cutting-edge web design and reliable hosting solutions for
+            businesses that want to stand out in the digital landscape.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={() => {
-                const contactSection = document.getElementById("contact")
+                const contactSection = document.getElementById("contact");
                 if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: shouldReduceMotion ? "auto" : "smooth" })
+                  contactSection.scrollIntoView({
+                    behavior: shouldReduceMotion ? "auto" : "smooth",
+                  });
                 }
               }}
               className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium transition-all hover:bg-primary/90 hover:scale-105"
@@ -254,7 +268,10 @@ const Hero = () => {
         {/* Only render browser mockup on client and non-mobile */}
         <div className="relative">
           {isClient ? (
-            <BrowserMockup shouldReduceMotion={shouldReduceMotion} isMobile={isMobile} />
+            <BrowserMockup
+              shouldReduceMotion={shouldReduceMotion}
+              isMobile={isMobile}
+            />
           ) : (
             <div className="lg:block" style={{ height: "400px" }} />
           )}
@@ -267,7 +284,9 @@ const Hero = () => {
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           initial={{ opacity: 0, y: -20 }}
           animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={shouldReduceMotion ? { duration: 0.1 } : { duration: 0.5, delay: 1 }}
+          transition={
+            shouldReduceMotion ? { duration: 0.1 } : { duration: 0.5, delay: 1 }
+          }
         >
           <motion.div
             className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-center justify-center"
@@ -287,14 +306,17 @@ const Hero = () => {
         </motion.div>
       )}
     </section>
-  )
-}
+  );
+};
 
 // Browser mockup with consistent animations for all devices
 const BrowserMockup = ({
   shouldReduceMotion,
   isMobile = false,
-}: { shouldReduceMotion: boolean; isMobile?: boolean }) => {
+}: {
+  shouldReduceMotion: boolean;
+  isMobile?: boolean;
+}) => {
   return (
     <motion.div
       className="relative w-full aspect-4/3 bg-linear-to-br from-indigo-500/10 to-purple-500/10 rounded-lg border border-border/50 backdrop-blur-xs p-4 shadow-xl"
@@ -319,19 +341,33 @@ const BrowserMockup = ({
         <motion.div
           className="h-8 w-3/4 bg-muted/80 rounded-md"
           animate={{ width: ["60%", "75%", "60%"] }}
-          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          transition={{
+            duration: 8,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+          }}
         />
 
         <motion.div
           className="h-4 w-1/2 bg-muted/80 rounded-md"
           animate={{ width: ["40%", "50%", "40%"] }}
-          transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 0.5 }}
+          transition={{
+            duration: 6,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+            delay: 0.5,
+          }}
         />
 
         <motion.div
           className="h-4 w-2/3 bg-muted/80 rounded-md"
           animate={{ width: ["55%", "65%", "55%"] }}
-          transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
+          transition={{
+            duration: 7,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+            delay: 1,
+          }}
         />
 
         <div className="grid grid-cols-3 gap-3 mt-6">
@@ -359,13 +395,21 @@ const BrowserMockup = ({
               "linear-gradient(to right, rgba(99, 102, 241, 0.4), rgba(168, 85, 247, 0.4))",
             ],
           }}
-          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          transition={{
+            duration: 8,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+          }}
         >
           <div className="h-full flex items-center justify-center">
             <motion.div
               className="w-8 h-8 rounded-full bg-primary/30 flex items-center justify-center"
               animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
             >
               <ArrowRight className="h-4 w-4 text-primary" />
             </motion.div>
@@ -380,7 +424,11 @@ const BrowserMockup = ({
           rotate: [0, 10, -10, 0],
           scale: [1, 1.05, 0.95, 1],
         }}
-        transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        transition={{
+          duration: 6,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        }}
       >
         <div className="absolute inset-1 bg-background rounded-md flex items-center justify-center">
           <Code className="h-6 w-6 text-primary" />
@@ -393,15 +441,19 @@ const BrowserMockup = ({
           rotate: [0, -10, 10, 0],
           scale: [1, 1.05, 0.95, 1],
         }}
-        transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 0.5 }}
+        transition={{
+          duration: 7,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+          delay: 0.5,
+        }}
       >
         <div className="absolute inset-1 bg-background rounded-full flex items-center justify-center">
           <Globe className="h-8 w-8 text-primary" />
         </div>
       </motion.div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default Hero
-
+export default Hero;

@@ -5,7 +5,7 @@ import { DialogDescription, DialogTitle, DialogHeader, DialogContent } from "@/c
 import type React from "react"
 import { useState, useRef } from "react"
 import { motion } from "framer-motion"
-import { Palette, Code2, Server, BarChart, ArrowRight, ShieldCheck, Smartphone } from "lucide-react"
+import { Palette, Code2, Server, BarChart, ArrowRight } from "lucide-react"
 import dynamic from "next/dynamic"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 
@@ -80,34 +80,6 @@ const services: Service[] = [
       "Regular performance reporting and analysis",
     ],
   },
-  {
-    title: "Mobile App Development",
-    description: "Native and cross-platform mobile applications for iOS and Android.",
-    details:
-      "We develop high-performance mobile applications that provide seamless user experiences across all devices. Our expertise spans native iOS and Android development as well as cross-platform solutions.",
-    icon: <Smartphone className="h-8 w-8" />,
-    color: "from-emerald-500 to-teal-500",
-    benefits: [
-      "Intuitive user interfaces optimized for mobile",
-      "Offline functionality and data synchronization",
-      "Integration with device features (camera, GPS, etc.)",
-      "Automated testing and quality assurance",
-    ],
-  },
-  {
-    title: "Security Audits",
-    description: "Comprehensive security assessments and vulnerability testing.",
-    details:
-      "Our security experts conduct thorough audits of your web applications to identify and address potential vulnerabilities. We provide detailed reports and recommendations to strengthen your security posture.",
-    icon: <ShieldCheck className="h-8 w-8" />,
-    color: "from-amber-500 to-orange-500",
-    benefits: [
-      "Identification of security vulnerabilities and risks",
-      "Penetration testing and ethical hacking",
-      "Compliance assessment (GDPR, HIPAA, PCI DSS)",
-      "Security best practices implementation",
-    ],
-  },
 ]
 
 const ServiceCard = ({
@@ -131,99 +103,6 @@ const ServiceCard = ({
   const handleMouseLeave = () => {
     setIsHovering(false)
   }
-
-  // Icon animation based on index
-  const iconAnimations = [
-    // Pulse with glow
-    {
-      animate: {
-        scale: [1, 1.2, 1],
-        filter: ["brightness(1)", "brightness(1.5)", "brightness(1)"],
-        transition: {
-          duration: 2,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        },
-      },
-    },
-    // Float up and down
-    {
-      animate: {
-        y: [0, -8, 0],
-        filter: [
-          "drop-shadow(0 0 0px rgba(99, 102, 241, 0.5))",
-          "drop-shadow(0 0 8px rgba(99, 102, 241, 0.8))",
-          "drop-shadow(0 0 0px rgba(99, 102, 241, 0.5))",
-        ],
-        transition: {
-          duration: 2,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        },
-      },
-    },
-    // Subtle scale with color shift
-    {
-      animate: {
-        scale: [1, 1.1, 0.95, 1],
-        filter: ["hue-rotate(0deg)", "hue-rotate(30deg)", "hue-rotate(0deg)"],
-        transition: {
-          duration: 3,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        },
-      },
-    },
-    // Gentle side-to-side
-    {
-      animate: {
-        x: [0, 5, -5, 0],
-        filter: [
-          "drop-shadow(0 0 0px rgba(168, 85, 247, 0.5))",
-          "drop-shadow(0 0 8px rgba(168, 85, 247, 0.8))",
-          "drop-shadow(0 0 0px rgba(168, 85, 247, 0.5))",
-        ],
-        transition: {
-          duration: 3,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        },
-      },
-    },
-    // Rotate slightly
-    {
-      animate: {
-        rotate: [0, 5, -5, 0],
-        filter: [
-          "drop-shadow(0 0 0px rgba(236, 72, 153, 0.5))",
-          "drop-shadow(0 0 8px rgba(236, 72, 153, 0.8))",
-          "drop-shadow(0 0 0px rgba(236, 72, 153, 0.5))",
-        ],
-        transition: {
-          duration: 2.5,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        },
-      },
-    },
-    // Pulse with opacity
-    {
-      animate: {
-        opacity: [1, 0.8, 1],
-        scale: [1, 1.05, 1],
-        filter: [
-          "drop-shadow(0 0 0px rgba(16, 185, 129, 0.5))",
-          "drop-shadow(0 0 8px rgba(16, 185, 129, 0.8))",
-          "drop-shadow(0 0 0px rgba(16, 185, 129, 0.5))",
-        ],
-        transition: {
-          duration: 2.2,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        },
-      },
-    },
-  ]
 
   return (
     <>
@@ -265,12 +144,7 @@ const ServiceCard = ({
         >
           <div className="grow p-8">
             <div className="flex items-start gap-6">
-              <motion.div
-                className={`p-4 rounded-lg bg-linear-to-br ${service.color} text-white`}
-                animate={isHovering ? iconAnimations[index % iconAnimations.length].animate : {}}
-              >
-                {service.icon}
-              </motion.div>
+              <div className={`p-4 rounded-lg bg-linear-to-br ${service.color} text-white`}>{service.icon}</div>
               <div className="flex-1">
                 <h2
                   className={`text-2xl font-semibold mb-2 transition-all duration-300 ${isHovering ? "text-gradient" : ""}`}
@@ -299,12 +173,7 @@ const ServiceCard = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <motion.div
-                className={`p-3 rounded-md bg-linear-to-br ${service.color} text-white`}
-                {...iconAnimations[index % iconAnimations.length]}
-              >
-                {service.icon}
-              </motion.div>
+              <div className={`p-3 rounded-md bg-linear-to-br ${service.color} text-white`}>{service.icon}</div>
               {service.title}
             </DialogTitle>
             <DialogDescription>{service.description}</DialogDescription>
@@ -375,7 +244,7 @@ const Services = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 h-full">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />
           ))}

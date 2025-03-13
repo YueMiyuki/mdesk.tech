@@ -11,20 +11,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://mdesk.tech/contact",
       lastModified: new Date(),
-      changeFrequency: "yearly",
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: "https://mdesk.tech/about",
       lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: "https://mdesk.tech/services",
       lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://mdesk.tech/open-source",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: "https://mdesk.tech/privacy",

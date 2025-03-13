@@ -276,7 +276,7 @@ export default function OpenSourceHero() {
             </div>
             <pre>
               <code>
-                {`pnpm dlx create-next-project --turbopack
+                {`pnpm dlx create-next-project
 pnpm build
 pnpm start`}
               </code>

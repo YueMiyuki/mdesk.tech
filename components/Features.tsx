@@ -126,21 +126,12 @@ const features: Feature[] = [
   },
 ];
 
-const FeatureCard = ({
-  feature,
-  index,
-}: {
-  feature: Feature;
-  index: number;
-}) => {
+const FeatureCard = ({ feature }: { feature: Feature; index: number }) => {
   const [showDialog, setShowDialog] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect();
-    }
+  const handleMouseEnter = () => {
     setIsHovering(true);
   };
 

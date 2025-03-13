@@ -93,21 +93,12 @@ const services: Service[] = [
   },
 ];
 
-const ServiceCard = ({
-  service,
-  index,
-}: {
-  service: Service;
-  index: number;
-}) => {
+const ServiceCard = ({ service }: { service: Service; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [showDialog, setShowDialog] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect();
-    }
+  const handleMouseEnter = () => {
     setIsHovering(true);
   };
 

@@ -1,13 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useMemo, useState } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { motion, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { ArrowRight, Code, Globe, Zap } from "lucide-react";
 import Link from "next/link";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
@@ -83,14 +77,6 @@ const Hero = () => {
       window.removeEventListener("resize", checkMobile);
     };
   }, [mouseX, mouseY]);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const springConfig = useMemo(() => ({ damping: 40, stiffness: 300 }), []);
   const xSpring = useSpring(mouseX, springConfig);
@@ -310,10 +296,7 @@ const Hero = () => {
 };
 
 // Browser mockup with consistent animations for all devices
-const BrowserMockup = ({
-  shouldReduceMotion,
-  isMobile = false,
-}: {
+const BrowserMockup = ({}: {
   shouldReduceMotion: boolean;
   isMobile?: boolean;
 }) => {

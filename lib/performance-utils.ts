@@ -305,9 +305,6 @@ export function optimizeJavaScript() {
   optimizeScriptLoading();
   optimizeMainThread();
 
-  // Split bundles more aggressively
-  const dynamicImports = new Set<string>();
-
   // Monitor script execution
   const observer = new PerformanceObserver((list) => {
     const entries = list.getEntries();
@@ -612,13 +609,6 @@ const optimizeMainThread = () => {
       window.requestIdleCallback(() => work());
     });
   }
-
-  // Batch DOM operations
-  const batchDOMOperations = () => {
-    const fragment = document.createDocumentFragment();
-    // Perform DOM operations on fragment
-    document.body.appendChild(fragment);
-  };
 };
 
 /**
@@ -635,9 +625,6 @@ export function deferNonCriticalTasks(task: () => void, timeout = 100) {
     setTimeout(task, timeout);
   }
 }
-
-// Define a type for the worker task function
-type WorkerTaskFn = (data: unknown) => unknown;
 
 // Update the offloadToWorker function signature
 export function offloadToWorker(

@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, email, subject, message } = body;
+    const { name, email, subject, message, isOpenSourceForm } = body;
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -110,6 +110,14 @@ export async function POST(request: NextRequest) {
       { upsert: true },
     );
 
+    if (isOpenSourceForm) {
+      const caseId = body;
+      return NextResponse.json({
+        success: true,
+        message: "Form submitted successfully",
+        ...(isOpenSourceForm && { caseId }),
+      });
+    }
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error sending message to Discord:", error);

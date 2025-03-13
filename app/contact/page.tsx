@@ -21,6 +21,7 @@ export default function ContactPage() {
     email: "",
     subject: "",
     message: "",
+    isOpenSourceForm: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,7 +61,13 @@ export default function ContactPage() {
         }
 
         setIsSubmitted(true);
-        setFormState({ name: "", email: "", subject: "", message: "" });
+        setFormState({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+          isOpenSourceForm: false,
+        });
       } catch (err) {
         setError(
           err instanceof Error

@@ -23,6 +23,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function OpenSourceContent() {
   const [formState, setFormState] = useState({
+    isOpenSourceForm: true,
     name: "",
     email: "",
     subject: "Open Source Project Application",
@@ -39,11 +40,14 @@ export default function OpenSourceContent() {
 
   useEffect(() => {
     setMounted(true);
-    setFormState((prev) => ({
-      ...prev,
-      caseId: prev.caseId || uuidv4(),
-    }));
-  }, []);
+    // Generate a case ID only once when the component mounts
+    if (!formState.caseId) {
+      setFormState((prev) => ({
+        ...prev,
+        caseId: uuidv4(),
+      }));
+    }
+  }, [formState.caseId]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -79,6 +83,9 @@ export default function OpenSourceContent() {
           email: formState.email,
           subject: `Open Source Application: ${formState.projectName}`,
           message: formattedMessage,
+          caseId: formState.caseId,
+          projectName: formState.projectName,
+          projectUrl: formState.projectUrl,
         }),
       });
 
@@ -90,13 +97,14 @@ export default function OpenSourceContent() {
 
       setIsSubmitted(true);
       setFormState({
+        isOpenSourceForm: true,
         name: "",
         email: "",
         subject: "Open Source Project Application",
         message: "",
         projectName: "",
         projectUrl: "",
-        caseId: uuidv4(),
+        caseId: data.caseId || formState.caseId,
       });
     } catch (err) {
       setError(
@@ -163,7 +171,6 @@ export default function OpenSourceContent() {
   return (
     <div className="bg-black">
       <section className="py-20 container px-6 relative">
-        {/* Background decoration */}
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl -z-10" />
         <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl -z-10" />
 
@@ -204,12 +211,10 @@ export default function OpenSourceContent() {
               className="relative h-full group"
               variants={itemVariants}
             >
-              {/* Glow effect */}
               <div
                 className={`absolute inset-0 bg-linear-to-br ${feature.color} opacity-0 blur-xl transition-opacity duration-500 -z-10 group-hover:opacity-20 rounded-lg`}
               />
 
-              {/* Animated border */}
               {mounted && (
                 <div className="absolute inset-0 rounded-lg overflow-hidden z-0 pointer-events-none opacity-0 group-hover:opacity-100">
                   <div
@@ -306,7 +311,6 @@ export default function OpenSourceContent() {
 
             <div className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-2xl overflow-hidden shadow-xl">
               <div className="bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-indigo-500/20 p-8 relative overflow-hidden">
-                {/* Animated sparkles */}
                 {mounted && (
                   <motion.div
                     className="absolute top-6 right-8 text-white/80"

@@ -35,7 +35,7 @@ interface Service {
 
 const services: Service[] = [
   {
-    title: "Web Design",
+    title: "Web\nDesign",
     description: "Custom, responsive designs tailored to your brand.",
     details:
       "Our design team creates beautiful, intuitive interfaces that reflect your brand identity and engage your users. We focus on responsive design, ensuring your website looks great on all devices.",
@@ -154,6 +154,7 @@ const ServiceCard = ({ service }: { service: Service; index: number }) => {
               <div className="flex-1">
                 <h2
                   className={`text-2xl font-semibold mb-2 transition-all duration-300 ${isHovering ? "text-gradient" : ""}`}
+                  style={{ whiteSpace: "pre-line" }}
                 >
                   {service.title}
                 </h2>
@@ -186,7 +187,7 @@ const ServiceCard = ({ service }: { service: Service; index: number }) => {
               >
                 {service.icon}
               </div>
-              {service.title}
+              <span style={{ whiteSpace: "pre-line" }}>{service.title}</span>
             </DialogTitle>
             <DialogDescription>{service.description}</DialogDescription>
           </DialogHeader>

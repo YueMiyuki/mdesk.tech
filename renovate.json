@@ -1,0 +1,53 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+      "config:base",
+      ":dependencyDashboard",
+      "group:monorepos",
+      "group:recommended"
+    ],
+    "schedule": [
+      "before 5am on Monday"
+    ],
+    "timezone": "UTC",
+    "assignees": ["@YueMiyuki"],
+    "reviewers": ["@mDesk-Tech"],
+    "packageRules": [
+      {
+        "matchUpdateTypes": ["minor", "patch"],
+        "automerge": true,
+        "automergeType": "branch",
+        "labels": ["dependencies", "automerge"]
+      },
+      {
+        "matchUpdateTypes": ["major"],
+        "labels": ["dependencies", "major-update"],
+        "assignees": ["@senior-developer"]
+      },
+      {
+        "matchDepTypes": ["devDependencies"],
+        "automerge": true
+      },
+      {
+        "matchPackagePatterns": ["*"],
+        "excludePackagePatterns": ["^@types/"],
+        "groupName": "all non-types packages",
+        "groupSlug": "all"
+      }
+    ],
+    "dependencyDashboard": true,
+    "platformAutomerge": true,
+    "rangeStrategy": "bump",
+    "commitMessageAction": "Update",
+    "commitMessageTopic": "{{depName}}",
+    "commitMessageExtra": "to {{newVersion}}",
+    "vulnerabilityAlerts": {
+      "labels": ["security"],
+      "assignees": ["@security-team"]
+    },
+    "lockFileMaintenance": {
+      "enabled": true,
+      "automerge": true,
+      "schedule": ["before 6am on the first day of the month"]
+    }
+  }
